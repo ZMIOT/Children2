@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    tools:context="com.example.GradeCircle.XC_edit">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_grade_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        >
+        <TextView
+            android:id="@+id/cancel_grade_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:text="取消"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="动态发布"/>
+        <TextView
+            android:id="@+id/btn_grade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="right"
+            android:text="发布"/>
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBottomText"/>
+
+    <EditText
+        android:id="@+id/title_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dip"
+        android:background="@drawable/bg_edittext_selector"
+        android:hint="动态标题"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textColorHint="#AAAAAA"
+        android:textSize="15dip" />
+
+    <!--<EditText
+        android:id="@+id/edit_grade_info"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:hint="分享新鲜事。。。"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textColorHint="#AAAAAA"
+        android:textSize="15dip" />-->
+    <EditText
+        android:id="@+id/edit_grade_info"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/bg_edittext_selector"
+        android:hint="分享新鲜事。。。"
+        android:gravity="top|left"
+        />
+    <GridView
+        android:layout_marginTop="10dp"
+        android:id="@+id/gw_grade"
+        android:numColumns="5"
+        android:columnWidth="66dp"
+        android:layout_width="match_parent"
+        android:layout_height="380dp" />
+    <!--<Button
+        android:id="@+id/btn_grade"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="save">
+    </Button>-->
+</LinearLayout>

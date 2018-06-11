@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.administrator.broadcastbestpractice.MainActivity">
+   <!-- <item
+        android:id="@+id/action_settings"
+        android:title="@string/action_settings"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        app:showAsAction="never"/>-->
+
+    <!--<item
+        android:id="@+id/action_email"
+        android:icon="@android:drawable/ic_dialog_email"
+        android:title="@string/action_email"
+        app:showAsAction="ifRoom"
+
+        />-->
+   <!--<item
+       android:id="@+id/action_add"
+       android:icon="@drawable/add"
+       android:title="add"
+       app:showAsAction="ifRoom"
+      />-->
+
+</menu>

@@ -1,0 +1,14 @@
+<resources>
+    <string name="send">Send</string>
+    <string name="app_name">children</string>
+    <string name="action_email">Email</string>
+    <string name="action_settings">Settings</string>
+    <string name="font_path">fonts/vazir.ttf</string>
+    <string name="navigation_drawer_open">open</string>
+    <string name="navigation_drawer_close">close</string>
+    <string name="campus_bulletin">校园公告</string>
+    <string name="bulletin_detail">公告详情</string>
+    <string name="grade_info_detail">班级公告详情</string>
+    <string name="empty_no_data">There is no data, Click Retry</string>
+    <string name="brvah_loading">正在加载数据。。。</string>
+</resources>

@@ -1,0 +1,107 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.administrator.children"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        flavorDimensions "versionCode"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        arm {
+            ndk {
+                abiFilters "armeabi"
+            }
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+        maven { url "https://jitpack.io" }//BRVAH
+
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+    }
+
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.2'
+    compile 'com.contrarywind:Android-PickerView:4.1.3'
+    compile 'com.github.codbking:PickTime:v1.0.1'
+    compile 'com.contrarywind:wheelview:4.0.5'
+    compile('com.marshalchen.ultimaterecyclerview:library:0.7.3') {
+        exclude group: 'com.android.support'
+    }
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:design:26.1.0'
+    compile 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+    compile 'com.facebook.fresco:fresco:0.14.1'
+/**
+ * 封装的工具类
+ */
+    compile 'com.hsy.utils:utilslibrary:1.0.1'
+
+    /**
+     * toolbar
+     */
+    compile 'com.alirezaafkar:toolbar:1.1.2'
+    compile 'it.neokree:MaterialTabs:0.11'
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    compile 'com.github.clans:fab:1.6.4'
+
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile(name: 'NativeImgCompress', ext: 'aar')
+
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'//BRVAH
+
+    compile 'cn.hugeterry.coordinatortablayout:coordinatortablayout:1.2.2'
+
+    compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha7'
+
+    compile 'com.yanzhenjie:album:2.1.1'
+/*
+viewpager嵌套子fragment
+ */
+    compile 'com.jpardogo.materialtabstrip:library:1.1.1'
+
+    compile 'liji.library.dev:takephotolib:2.0.1'
+
+    compile 'com.lzy.widget:ninegridview:0.2.0'
+
+    //图表
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
+}
