@@ -86,6 +86,7 @@ public class Update_password extends AppCompatActivity {
         HashMap<String, String> params = new HashMap<>();
         pref=getSharedPreferences("data",MODE_PRIVATE);
         String username=pref.getString("username","");
+        params.put("state","update_pass");
         params.put("update_pass","updatepassword");
         params.put("password",uPassword);
         params.put("username",username);
