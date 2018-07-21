@@ -10,15 +10,18 @@ import java.util.List;
  */
 
 public class ActivityCollector {
-    public static List<Activity> activities=new ArrayList<>();
-    public static void addActivity(Activity activity){
+    public static List<Activity> activities = new ArrayList<>();
+
+    public static void addActivity(Activity activity) {
         activities.remove(activity);
     }
-    public static void removeActivity(Activity activity){
+
+    public static void removeActivity(Activity activity) {
         activities.remove(activity);
     }
-    public static void finishAll(){
-        for(Activity activity:activities){
+
+    public static void finishAll() {
+        for (Activity activity : activities) {
             activity.finish();
         }
     }

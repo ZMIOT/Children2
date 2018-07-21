@@ -18,15 +18,15 @@ public class Teacher_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_teacher_info);
-        final TextView summaryArea=(TextView) findViewById(R.id.teacher_content_text);
-        Toolbar toolbar=(Toolbar)findViewById(R.id.teacher_toolbar);
-        TextView tea=(TextView)findViewById(R.id.teacher_name);
-        ImageView comment_detail_bg=(ImageView)findViewById(R.id.teacher_detail_bg_view);
+        final TextView summaryArea = (TextView) findViewById(R.id.teacher_content_text);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.teacher_toolbar);
+        TextView tea = (TextView) findViewById(R.id.teacher_name);
+        ImageView comment_detail_bg = (ImageView) findViewById(R.id.teacher_detail_bg_view);
 
-        Intent intent=getIntent();
-        String teachername=intent.getStringExtra("teachername");
-        String teacherphone=intent.getStringExtra("teacherphone");
-        String summary=intent.getStringExtra("summary");
+        Intent intent = getIntent();
+        String teachername = intent.getStringExtra("teachername");
+        String teacherphone = intent.getStringExtra("teacherphone");
+        String summary = intent.getStringExtra("summary");
 
         toolbar.setTitle(teachername);
         tea.setText(teacherphone);

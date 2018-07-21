@@ -23,7 +23,7 @@ import java.util.List;
 import Baseclass.News;
 import Baseclass.PersonCard;
 
-public class NewsAdapter extends RecyclerView.Adapter{
+public class NewsAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private List<PersonCard> mData; //定义数据源
     private OnItemClickListener mOnItemClickListener;
@@ -52,10 +52,10 @@ public class NewsAdapter extends RecyclerView.Adapter{
         holder2.content.setText(personCard.content);
         holder2.title.setText(personCard.title);
         holder2.time.setText(personCard.time);
-        holder2.itemView.setOnClickListener(new View.OnClickListener(){
+        holder2.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int pos=holder2.getLayoutPosition();
+                int pos = holder2.getLayoutPosition();
                 mOnItemClickListener.onItemClick(holder.itemView, pos);
             }
         });
@@ -70,7 +70,7 @@ public class NewsAdapter extends RecyclerView.Adapter{
     }
 
     //定义自己的ViewHolder，将View的控件引用在成员变量上
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public SimpleDraweeView userAvatar;
         public TextView userName;
         public TextView content;
@@ -82,24 +82,27 @@ public class NewsAdapter extends RecyclerView.Adapter{
             super(itemView);
             userAvatar = (SimpleDraweeView) itemView.findViewById(R.id.user_avatar);
             userName = (TextView) itemView.findViewById(R.id.user_name);
-            content=(TextView)itemView.findViewById(R.id.content_xc);
-            title=(TextView)itemView.findViewById(R.id.title_01);
-            time=(TextView)itemView.findViewById(R.id.time_xc);
+            content = (TextView) itemView.findViewById(R.id.content_xc);
+            title = (TextView) itemView.findViewById(R.id.title_01);
+            time = (TextView) itemView.findViewById(R.id.time_xc);
         }
 
         //实现OnClickListener接口
         @Override
         public void onClick(View view) {
-            if(mListener != null){
+            if (mListener != null) {
 
             }
         }
     }
+
     public interface OnItemClickListener {
-        void onItemClick(View view,int postion);
-        void onLongClick( int position);
+        void onItemClick(View view, int postion);
+
+        void onLongClick(int position);
     }
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener ){
-        this. mOnItemClickListener=onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
     }
 }

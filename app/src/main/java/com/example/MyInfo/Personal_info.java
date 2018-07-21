@@ -84,19 +84,18 @@ import Baseclass.Info;
 import Baseclass.parent;
 
 
+public class Personal_info extends AppCompatActivity {
 
-public  class Personal_info extends AppCompatActivity {
-
-    public List<Info> infolist=new ArrayList<>();
+    public List<Info> infolist = new ArrayList<>();
     public MyDatabasehelper dbhelper;
     private Bitmap head;// 头像Bitmap
     private static String path = "/sdcard/myHead/";// sd路径
     private ImageView touxiang;
-    public String ip="jdbc:mysql://localhost/";
-    public String user="administor";
-    public String password="123456";
-    public String sql="select * from user_info";
-    public String url="jdbc:mysql://localhost/db_children?user=administor&password=123456&useUnicode=true&characterEncoding=8859_1";
+    public String ip = "jdbc:mysql://localhost/";
+    public String user = "administor";
+    public String password = "123456";
+    public String sql = "select * from user_info";
+    public String url = "jdbc:mysql://localhost/db_children?user=administor&password=123456&useUnicode=true&characterEncoding=8859_1";
 
     private PopupWindow mPopWindow;
 
@@ -134,12 +133,12 @@ public  class Personal_info extends AppCompatActivity {
     private Dialog mDialog;
     protected View clickView;//是通过哪个View弹出的
     private boolean isAnim = true;
-    private  String admin;
+    private String admin;
 
-    private ArrayList<String> optionsItems=new ArrayList<>();
+    private ArrayList<String> optionsItems = new ArrayList<>();
 
 
-    private  SharedPreferences pref;
+    private SharedPreferences pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,32 +191,32 @@ public  class Personal_info extends AppCompatActivity {
         });
         showMessage();
     }
-    private void showsexWindow() {
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        final String ad=pref.getString("username","");
-        MyDatabasehelper dbhelper=new MyDatabasehelper(Personal_info.this,"User.db",null,3);
-        final SQLiteDatabase  db=dbhelper.getWritableDatabase();
 
-        final Cursor cursor=db.rawQuery("select * from User where username=?",new String[]{ad});
+    private void showsexWindow() {
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        final String ad = pref.getString("username", "");
+        MyDatabasehelper dbhelper = new MyDatabasehelper(Personal_info.this, "User.db", null, 3);
+        final SQLiteDatabase db = dbhelper.getWritableDatabase();
+
+        final Cursor cursor = db.rawQuery("select * from User where username=?", new String[]{ad});
         AlertDialog.Builder builder = new AlertDialog.Builder(Personal_info.this);
         final AlertDialog dialog = builder.create();
         View view = View.inflate(Personal_info.this, R.layout.sex_item, null);
         final TextView man = (TextView) view.findViewById(R.id.pop_computer);
         final TextView woman = (TextView) view.findViewById(R.id.pop_financial);
         //设置contentView
-       /* View contentView = LayoutInflater.from(Personal_info.this).inflate(R.layout.sex_item, null);*/
+        /* View contentView = LayoutInflater.from(Personal_info.this).inflate(R.layout.sex_item, null);*/
         man.setOnClickListener(new View.OnClickListener() {// 男
             @Override
             public void onClick(View v) {
-                final ContentValues values=new ContentValues();
-                values.put("sex",man.getText().toString());
-                if(cursor.moveToFirst())
-                {
-                    db.update("User",values,"username=?",new String[]{ad});
+                final ContentValues values = new ContentValues();
+                values.put("sex", man.getText().toString());
+                if (cursor.moveToFirst()) {
+                    db.update("User", values, "username=?", new String[]{ad});
                 }
                 try {
                     show_sex.setText(man.getText().toString());
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 showMessage();
@@ -228,11 +227,10 @@ public  class Personal_info extends AppCompatActivity {
         woman.setOnClickListener(new View.OnClickListener() {// 女
             @Override
             public void onClick(View v) {
-                final ContentValues values=new ContentValues();
-                values.put("sex",woman.getText().toString());
-                if(cursor.moveToFirst())
-                {
-                    db.update("User",values,"username=?",new String[]{ad});
+                final ContentValues values = new ContentValues();
+                values.put("sex", woman.getText().toString());
+                if (cursor.moveToFirst()) {
+                    db.update("User", values, "username=?", new String[]{ad});
                 }
                 /*try {
                     show_sex.setText(woman.getText().toString());
@@ -253,6 +251,7 @@ public  class Personal_info extends AppCompatActivity {
         this.clickView = v;
         show();
     }
+
     /**
      * 添加View到根视图
      */
@@ -268,14 +267,17 @@ public  class Personal_info extends AppCompatActivity {
             rootView.requestFocus();
         }
     }
+
     public boolean isDialog() {
         return false;
     }
+
     private void showDialog() {
         if (mDialog != null) {
             mDialog.show();
         }
     }
+
     /**
      * 检测该View是不是已经添加到根视图
      *
@@ -289,6 +291,7 @@ public  class Personal_info extends AppCompatActivity {
         }
 
     }
+
     /**
      * show的时候调用
      *
@@ -300,14 +303,15 @@ public  class Personal_info extends AppCompatActivity {
             contentContainer.startAnimation(inAnim);
         }
     }
-    public void showInfo() {
-            show_nickname=(TextView)findViewById(R.id.show_myName);
-            show_sex=(TextView)findViewById(R.id.show_sex);
-            show_autograph=(TextView)findViewById(R.id.show_auto);
-            pref=getSharedPreferences("data",MODE_PRIVATE);
-            String username=pref.getString("username","");
 
-        }
+    public void showInfo() {
+        show_nickname = (TextView) findViewById(R.id.show_myName);
+        show_sex = (TextView) findViewById(R.id.show_sex);
+        show_autograph = (TextView) findViewById(R.id.show_auto);
+        pref = getSharedPreferences("data", MODE_PRIVATE);
+        String username = pref.getString("username", "");
+
+    }
 
 
     @Override
@@ -320,7 +324,7 @@ public  class Personal_info extends AppCompatActivity {
      * 日期弹窗
      */
     protected void showDatePickDlg() {
-        show_birth=(TextView)findViewById(R.id.show_birth);
+        show_birth = (TextView) findViewById(R.id.show_birth);
         final DatePickDialog dialog = new DatePickDialog(this);
         //设置上下年分限制
         dialog.setYearLimt(5);
@@ -339,17 +343,17 @@ public  class Personal_info extends AppCompatActivity {
         dialog.setOnSureLisener(new OnSureLisener() {
             @Override
             public void onSure(Date date) {
-                editor=getSharedPreferences("info",MODE_PRIVATE).edit();
-                pref=getSharedPreferences("data",MODE_PRIVATE);
+                editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+                pref = getSharedPreferences("data", MODE_PRIVATE);
                 SimpleDateFormat bartDateFormat = new SimpleDateFormat
                         ("yyyy-MM-dd");
-                admin=pref.getString("username","");
+                admin = pref.getString("username", "");
                 show_birth.setText(bartDateFormat.format(date));
-                SQLiteDatabase db=dbhelper.getWritableDatabase();
-                ContentValues values=new ContentValues();
-                values.put("birth",bartDateFormat.format(date));
-                db.update("User",values,"username=?",new String[]{admin});
-                editor.putString("birth",bartDateFormat.format(date));
+                SQLiteDatabase db = dbhelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("birth", bartDateFormat.format(date));
+                db.update("User", values, "username=?", new String[]{admin});
+                editor.putString("birth", bartDateFormat.format(date));
             }
         });
         dialog.show();
@@ -358,41 +362,40 @@ public  class Personal_info extends AppCompatActivity {
     /**
      * 将数据库中的个人资料信息取出并显示出来
      */
-    protected void showMessage(){
+    protected void showMessage() {
 
-        TextView show_nickname=(TextView)findViewById(R.id.show_myName);
-        TextView show_sex=(TextView)findViewById(R.id.show_sex);
-        TextView show_birth=(TextView)findViewById(R.id.show_birth);
-        TextView show_autograph=(TextView)findViewById(R.id.show_auto);
-        pref=getSharedPreferences("data",MODE_PRIVATE);
-       SharedPreferences pref1=getSharedPreferences("info",MODE_PRIVATE);
-        String username=pref.getString("username","");
-        sex1=pref1.getString("sex","");
-        birthdate=pref1.getString("birth","");
-        autograph=pref1.getString("autograph","");
-        dbhelper=new MyDatabasehelper(this,"User.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
-        Log.i("username",username);
-        Cursor cursor=db.rawQuery("select * from User where username=?",new String[]{username});
+        TextView show_nickname = (TextView) findViewById(R.id.show_myName);
+        TextView show_sex = (TextView) findViewById(R.id.show_sex);
+        TextView show_birth = (TextView) findViewById(R.id.show_birth);
+        TextView show_autograph = (TextView) findViewById(R.id.show_auto);
+        pref = getSharedPreferences("data", MODE_PRIVATE);
+        SharedPreferences pref1 = getSharedPreferences("info", MODE_PRIVATE);
+        String username = pref.getString("username", "");
+        sex1 = pref1.getString("sex", "");
+        birthdate = pref1.getString("birth", "");
+        autograph = pref1.getString("autograph", "");
+        dbhelper = new MyDatabasehelper(this, "User.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Log.i("username", username);
+        Cursor cursor = db.rawQuery("select * from User where username=?", new String[]{username});
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
 
-            if(cursor!=null){
-                do{
-                    String nickname=cursor.getString(cursor.getColumnIndex("nickname"));
-                    String birthday=cursor.getString(cursor.getColumnIndex("birth"));
-                    String sexes=cursor.getString(cursor.getColumnIndex("sex"));
-                    String autograph=cursor.getString(cursor.getColumnIndex("autograph"));
+            if (cursor != null) {
+                do {
+                    String nickname = cursor.getString(cursor.getColumnIndex("nickname"));
+                    String birthday = cursor.getString(cursor.getColumnIndex("birth"));
+                    String sexes = cursor.getString(cursor.getColumnIndex("sex"));
+                    String autograph = cursor.getString(cursor.getColumnIndex("autograph"));
                     show_nickname.setText(nickname);
                     show_birth.setText(birthday);
                     show_sex.setText(sexes);
                     show_autograph.setText(autograph);
                 }
-                while(cursor.moveToNext());
+                while (cursor.moveToNext());
             }
-        }
-        else{
-            Toast.makeText(Personal_info.this,"哈哈",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(Personal_info.this, "哈哈", Toast.LENGTH_SHORT).show();
         }
         cursor.close();
     }
@@ -413,7 +416,7 @@ public  class Personal_info extends AppCompatActivity {
      * 头像信息初始化
      */
     private void initView() {
-        touxiang = (ImageView)findViewById(R.id.edit_tx);
+        touxiang = (ImageView) findViewById(R.id.edit_tx);
         Bitmap bt = BitmapFactory.decodeFile(path + "head.jpg");// 从SD卡中找头像，转换成Bitmap
         if (bt != null) {
             @SuppressWarnings("deprecation")
@@ -426,10 +429,11 @@ public  class Personal_info extends AppCompatActivity {
              */
         }
     }
+
     /***
      * 编辑头像
      */
-    protected void showTypeDialog(){
+    protected void showTypeDialog() {
         //显示对话框
         AlertDialog.Builder builder = new AlertDialog.Builder(Personal_info.this);
         final AlertDialog dialog = builder.create();
@@ -462,19 +466,20 @@ public  class Personal_info extends AppCompatActivity {
 
     /**
      * StartActivityForResult的回调函数
+     *
      * @param requestCode
      * @param resultCode
      * @param data
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        SharedPreferences.Editor editor=getSharedPreferences("data",MODE_PRIVATE).edit();
-        MyDatabasehelper dbhelper=new MyDatabasehelper(Personal_info.this,"User.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        String adm=pref.getString("username","");
-        Context mContext=Personal_info.this;
+        SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
+        MyDatabasehelper dbhelper = new MyDatabasehelper(Personal_info.this, "User.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        String adm = pref.getString("username", "");
+        Context mContext = Personal_info.this;
         switch (requestCode) {
             case 1:
                 if (resultCode == RESULT_OK) {
@@ -497,15 +502,13 @@ public  class Personal_info extends AppCompatActivity {
                          */
                         ByteArrayOutputStream os = new ByteArrayOutputStream();
                         head.compress(Bitmap.CompressFormat.PNG, 100, os);
-                        if(os.toByteArray()!=null){
-                            values.put("touxiang",os.toByteArray());
-                            db.update("User",values,"username=?",new String[]{adm});
-                        }
-                        else
-                        {
+                        if (os.toByteArray() != null) {
+                            values.put("touxiang", os.toByteArray());
+                            db.update("User", values, "username=?", new String[]{adm});
+                        } else {
                             Drawable drawable = context.getResources().getDrawable(R.drawable.tx);
-                            values.put("touxiang",getPicture(drawable));
-                            db.update("User",values,"username=?",new String[]{adm});
+                            values.put("touxiang", getPicture(drawable));
+                            db.update("User", values, "username=?", new String[]{adm});
                         }
                         setPicToView(head);// 保存在SD卡中
                         touxiang.setImageBitmap(head);// 用ImageView显示出来
@@ -520,7 +523,7 @@ public  class Personal_info extends AppCompatActivity {
     //将drawable转换成可以用来存储的byte[]类型
 
     private byte[] getPicture(Drawable drawable) {
-        if(drawable == null) {
+        if (drawable == null) {
             return null;
         }
         BitmapDrawable bd = (BitmapDrawable) drawable;
@@ -531,10 +534,9 @@ public  class Personal_info extends AppCompatActivity {
     }
 
 
-
-
     /**
      * 调用系统的裁剪功能
+     *
      * @param uri
      */
     public void cropPhoto(Uri uri) {

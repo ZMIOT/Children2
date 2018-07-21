@@ -24,7 +24,7 @@ public class Baby {
         this.parent_phone = parent_phone;
     }*/
 
-    public Baby(int babyid, String babyname,String classname,  String summary,String parent_phone,String sex, String birth, String parentname,   String relationship) {
+    public Baby(int babyid, String babyname, String classname, String summary, String parent_phone, String sex, String birth, String parentname, String relationship) {
         this.babyid = babyid;
         this.babyname = babyname;
         this.sex = sex;

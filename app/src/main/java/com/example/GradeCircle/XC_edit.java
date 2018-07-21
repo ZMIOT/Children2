@@ -49,7 +49,7 @@ import java.text.SimpleDateFormat;
 
 import BaseAdapterClass.GridViewAddImgesAdpter;
 
-public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
+public class XC_edit extends AppCompatActivity implements View.OnClickListener {
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
@@ -72,11 +72,9 @@ public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
         gw = (GridView) findViewById(R.id.gw);
         datas = new ArrayList<>();
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
-        try
-        {
+        try {
             gw.setAdapter(gridViewAddImgesAdpter);
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.getMessage();
         }
         gw.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,9 +83,9 @@ public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
                 showdialog();
             }
         });
-         save=(Button)findViewById(R.id.btn1);
-         title=(EditText)findViewById(R.id.title_xc);
-         edit_xc_info=(EditText)findViewById(R.id.edit_xc_info);
+        save = (Button) findViewById(R.id.btn1);
+        title = (EditText) findViewById(R.id.title_xc);
+        edit_xc_info = (EditText) findViewById(R.id.edit_xc_info);
         save.setOnClickListener(this);
     }
 
@@ -96,6 +94,7 @@ public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
     public void onClick(View v) {
         finish();
     }
+
     /**
      * 选择图片对话框
      */
@@ -282,19 +281,18 @@ public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
     }
 
     public void photoPath(String path) {
-        Map<String,Object> map=new HashMap<>();
-        map.put("path",path);
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged();
     }
 
-    public void savetoDB(Uri uri)
-    {
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        String user=pref.getString("username","");
-        MyDatabasehelper dbhelper=new MyDatabasehelper(XC_edit.this,"Dyna.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
-        ContentValues contentValues=new ContentValues();
+    public void savetoDB(Uri uri) {
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        String user = pref.getString("username", "");
+        MyDatabasehelper dbhelper = new MyDatabasehelper(XC_edit.this, "Dyna.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
 
         /*  Cursor cursor1=db.rawQuery("select*from Dyna where teachername=?",new String[]{"zm"});
         if(cursor1.moveToFirst())
@@ -305,15 +303,15 @@ public class XC_edit extends AppCompatActivity  implements View.OnClickListener{
         }else
         {*/
 
-      SimpleDateFormat formatter=new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
-      Date curDate=new Date(System.currentTimeMillis());
-      String time=formatter.format(curDate);
-        contentValues.put("uri",uri.toString());
-        contentValues.put("title",title.getText().toString());
-        contentValues.put("content",edit_xc_info.getText().toString());
-        contentValues.put("time",time);
-        contentValues.put("teachername",user);
-        db.insert("Dyna",null,contentValues);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy年MM月dd日  HH:mm:ss");
+        Date curDate = new Date(System.currentTimeMillis());
+        String time = formatter.format(curDate);
+        contentValues.put("uri", uri.toString());
+        contentValues.put("title", title.getText().toString());
+        contentValues.put("content", edit_xc_info.getText().toString());
+        contentValues.put("time", time);
+        contentValues.put("teachername", user);
+        db.insert("Dyna", null, contentValues);
         db.close();
         /*}*/
 

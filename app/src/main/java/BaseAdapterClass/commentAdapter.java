@@ -18,21 +18,22 @@ import java.util.List;
 import Baseclass.Comment;
 import Baseclass.Grade;
 
-public class commentAdapter  extends BaseQuickAdapter<Comment,BaseViewHolder> {
+public class commentAdapter extends BaseQuickAdapter<Comment, BaseViewHolder> {
     private List<Comment> mdata;
+
     public commentAdapter(int layoutResId, List data) {
         super(layoutResId, data);
-        this.mdata=data;
+        this.mdata = data;
     }
+
     @Override
     protected void convert(BaseViewHolder helper, Comment item) {
-        helper.setText(R.id.baby_name,item.getBabyname());
+        helper.setText(R.id.baby_name, item.getBabyname());
     }
 
 
-    public void refresh(List<Comment> mList)
-    {
-        mdata=mList;
+    public void refresh(List<Comment> mList) {
+        mdata = mList;
         notifyDataSetChanged();
     }
 }

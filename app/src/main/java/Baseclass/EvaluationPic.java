@@ -12,11 +12,13 @@ import java.util.List;
  * ================================================
  */
 
-/** 评论的图片信息 */
+/**
+ * 评论的图片信息
+ */
 public class EvaluationPic implements Serializable {
-    /*public List<EvaluationPic> attachments;*/
-    /*public int attachmentId;
-    public String imageId;*/
+    public List<EvaluationPic> attachments;
+    public int attachmentId;
+    public String imageId;
     public String imageUrl;       // 原图
     public String smallImageUrl;  // 缩略图
 
@@ -25,7 +27,7 @@ public class EvaluationPic implements Serializable {
         this.smallImageUrl = smallImageUrl;
     }
 
-    /* public int getAttachmentId() {
+    public int getAttachmentId() {
         return attachmentId;
     }
 
@@ -39,7 +41,7 @@ public class EvaluationPic implements Serializable {
 
     public void setImageId(String imageId) {
         this.imageId = imageId;
-    }*/
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -57,11 +59,11 @@ public class EvaluationPic implements Serializable {
         this.smallImageUrl = smallImageUrl;
     }
 
-    /*public List<EvaluationPic> getAttachments() {
+    public List<EvaluationPic> getAttachments() {
         return attachments;
     }
 
     public void setAttachments(List<EvaluationPic> attachments) {
         this.attachments = attachments;
-    }*/
+    }
 }

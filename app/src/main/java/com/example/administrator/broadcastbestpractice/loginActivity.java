@@ -43,7 +43,7 @@ public class loginActivity extends BaseActivity {
     private CheckBox rememberPass;
     private SharedPreferences.Editor editor;
     private static Handler handler = new Handler();
-    private MyDatabasehelper dbhelper=new MyDatabasehelper(this,"User.db",null,3);
+    private MyDatabasehelper dbhelper = new MyDatabasehelper(this, "User.db", null, 3);
 
     //广播对象
     private MyBroadReceiver mbr;
@@ -56,13 +56,13 @@ public class loginActivity extends BaseActivity {
         password = (EditText) findViewById(R.id.psd);
         logbtn = (TextView) findViewById(R.id.login);
         regtv = (TextView) findViewById(R.id.register);
-        CheckBox rememberPass=(CheckBox)findViewById(R.id.cb);
+        CheckBox rememberPass = (CheckBox) findViewById(R.id.cb);
 
-        pref= PreferenceManager.getDefaultSharedPreferences(this);
-        boolean isRemember=pref.getBoolean("remember_password",false);
-        if(isRemember){
-            String account=pref.getString("account","");
-            String pass=pref.getString("password","");
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = pref.getBoolean("remember_password", false);
+        if (isRemember) {
+            String account = pref.getString("account", "");
+            String pass = pref.getString("password", "");
             username.setText(account);
             password.setText(pass);
             rememberPass.setChecked(true);
@@ -91,7 +91,7 @@ public class loginActivity extends BaseActivity {
         });
 
 
-     /*   *//**
+        /*   *//**
          * 登录时动态注册广播
          *//*
         mbr=new MyBroadReceiver();
@@ -112,53 +112,48 @@ public class loginActivity extends BaseActivity {
                      * json解析
                      */
                     try {
-                        SQLiteDatabase db=dbhelper.getWritableDatabase();
-                       /* if(info!=null&&!"".equals(info)){*/
-                            JSONArray jsonArray =new JSONArray(info);
-                            if(info.equals("failed"))
-                            {
-                                Toast.makeText(loginActivity.this,"请注册",Toast.LENGTH_SHORT).show();
-                            }
-                            else{
+                        SQLiteDatabase db = dbhelper.getWritableDatabase();
+                        /* if(info!=null&&!"".equals(info)){*/
+                        JSONArray jsonArray = new JSONArray(info);
+                        if (info.equals("failed")) {
+                            Toast.makeText(loginActivity.this, "请注册", Toast.LENGTH_SHORT).show();
+                        } else {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 if (jsonObject != null) {
                                     SharedPreferences.Editor editor1 = getSharedPreferences("data", MODE_PRIVATE).edit();
                                     String user = jsonObject.optString("username");
                                     String psd = jsonObject.optString("password");
-                                    int st=jsonObject.optInt("state");
-                                    int userflag=jsonObject.optInt("userflag");
-                                    editor1.putInt("userflag",userflag);
+                                    int st = jsonObject.optInt("state");
+                                    int userflag = jsonObject.optInt("userflag");
+                                    editor1.putInt("userflag", userflag);
                                     editor1.apply();
-                                    Log.i("state",""+st);
-                                    Log.i("user",user);
-                                    Log.i("password",psd);
+                                    Log.i("state", "" + st);
+                                    Log.i("user", user);
+                                    Log.i("password", psd);
                                     if (username.getText().toString().equals(user) && password.getText().toString().equals(psd)) {
                                         Log.i("dddd", "shdiofsokgfkdsjg");
                                         SharedPreferences.Editor editor = getSharedPreferences("data", MODE_PRIVATE).edit();
                                         editor.putString("username", username.getText().toString());
                                         editor.putString("password", password.getText().toString());
                                         editor.apply();
-                                        ContentValues values=new ContentValues();
-                                        values.put("username",user);
-                                        values.put("password",psd);
-                                        if(!db.rawQuery("select * from User where username=?",new String[]{user}).moveToFirst())
-                                        {
-                                            db.insert("User",null,values);
+                                        ContentValues values = new ContentValues();
+                                        values.put("username", user);
+                                        values.put("password", psd);
+                                        if (!db.rawQuery("select * from User where username=?", new String[]{user}).moveToFirst()) {
+                                            db.insert("User", null, values);
                                         }
                                         Intent intent1 = new Intent(loginActivity.this, MainActivity.class);
-                                        intent1.putExtra("state",st);
-                                        intent1.putExtra("userflag",userflag);
+                                        intent1.putExtra("state", st);
+                                        intent1.putExtra("userflag", userflag);
                                         startActivity(intent1);
 
-                                    }
-                                    else
-                                    {
-                                        Toast.makeText(loginActivity.this,"用户名或密码不正确，请重新填写",Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(loginActivity.this, "用户名或密码不正确，请重新填写", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
-                            }
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

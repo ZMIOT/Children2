@@ -24,19 +24,20 @@ import Baseclass.Info;
 
 public class MyInfoAdapter extends ArrayAdapter<Info> {
     private int infoId;
-    public MyInfoAdapter(Context context, int textViewId, List<Info> objects){
-        super(context,textViewId,objects);
-        infoId=textViewId;
+
+    public MyInfoAdapter(Context context, int textViewId, List<Info> objects) {
+        super(context, textViewId, objects);
+        infoId = textViewId;
     }
 
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Info info=getItem(position);
-        View view= LayoutInflater.from(getContext()).inflate(infoId,parent,false);
-        TextView InfoName=(TextView)view.findViewById(R.id.info_name);
+        Info info = getItem(position);
+        View view = LayoutInflater.from(getContext()).inflate(infoId, parent, false);
+        TextView InfoName = (TextView) view.findViewById(R.id.info_name);
         //getContext();
-        Log.i("MyInfoAdapter.class",getContext().toString());
+        Log.i("MyInfoAdapter.class", getContext().toString());
         //Log.i("MyInfoAdapter.class",InfoName.getText().toString());
         InfoName.setText(info.getName());
         return view;

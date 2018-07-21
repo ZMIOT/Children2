@@ -40,7 +40,7 @@ import BaseAdapterClass.TeacherAdapter;
 import Baseclass.Teacher;
 import utils.HttpUtil;
 
-public class FragmentPage3 extends Fragment{
+public class FragmentPage3 extends Fragment {
     /**
      * PagerSlidingTabStrip的实例
      */
@@ -56,22 +56,22 @@ public class FragmentPage3 extends Fragment{
     private EmptyFragment emptyFragment;
 
     private MyBroadReceiver myBroadReceiver;
-    private int userflag=0;
+    private int userflag = 0;
     private SharedPreferences pref;
-    private int flag=0;
+    private int flag = 0;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Teacher> teacherList;
     private static final String KGURL = "http://192.168.43.143:8081/HelloWeb/TeacherLet";
-    private static final String KGURL1="http://192.168.43.143:8081/HelloWeb/BabyLet";
+    private static final String KGURL1 = "http://192.168.43.143:8081/HelloWeb/BabyLet";
     private Handler frageHandler;
     private TeacherAdapter teacherAdapter;
     private View notDataView;
-    private int FLAG=0;
-    private int bFLAG=0;
+    private int FLAG = 0;
+    private int bFLAG = 0;
     private ViewPager pager;
-    private int state=0;
+    private int state = 0;
     /*
      *
      */
@@ -83,32 +83,26 @@ public class FragmentPage3 extends Fragment{
         setOverflowShowingAlways();
 
         dm = getResources().getDisplayMetrics();
-        pager = (ViewPager)view. findViewById(R.id.admin_pager);
+        pager = (ViewPager) view.findViewById(R.id.admin_pager);
         pager.setOffscreenPageLimit(0);//设置ViewPager的缓存界面数,默认缓存为2
         tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs);
         new Thread(new fragmentThread()).start();
-        frageHandler=new Handler()
-        {
+        frageHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                int[] i=(int[])msg.obj;
-                if(i[0]==1)
-                {
+                int[] i = (int[]) msg.obj;
+                if (i[0] == 1) {
                     FLAG = 1;
-                    if(i[1]==1)
-                    {
-                        bFLAG=1;
+                    if (i[1] == 1) {
+                        bFLAG = 1;
                     }
                     pager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
                     tabs.setViewPager(pager);
                     setTabsValue();
-                }
-                else
-                {
-                    if(i[1]==1)
-                    {
-                        bFLAG=1;
+                } else {
+                    if (i[1] == 1) {
+                        bFLAG = 1;
                     }
                     pager.setAdapter(new MyPagerAdapter(getChildFragmentManager()));
                     tabs.setViewPager(pager);
@@ -147,6 +141,7 @@ public class FragmentPage3 extends Fragment{
 
         return view;
     }
+
     /**
      * 对PagerSlidingTabStrip的各项属性进行赋值。
      */
@@ -178,34 +173,30 @@ public class FragmentPage3 extends Fragment{
             super(fm);
         }
 
-        private final String[] titles = { "教师信息", "幼儿信息"};
-        private final String[] titles1={"教师信息"};
-        private final String[] titles2={"幼儿信息"};
-        private SharedPreferences pref=getActivity().getSharedPreferences("data",Context.MODE_PRIVATE);
+        private final String[] titles = {"教师信息", "幼儿信息"};
+        private final String[] titles1 = {"教师信息"};
+        private final String[] titles2 = {"幼儿信息"};
+        private SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+
         @Override
         public CharSequence getPageTitle(int position) {
-            userflag=pref.getInt("userflag",0);
-            if(userflag==2){
+            userflag = pref.getInt("userflag", 0);
+            if (userflag == 2) {
                 return titles[position];
-            }
-           else if(userflag==1)
-            {
+            } else if (userflag == 1) {
                 return titles2[position];
-            }
-            else
+            } else
                 return titles1[position];
         }
 
         @Override
         public int getCount() {
-            userflag=pref.getInt("userflag",0);
-            if(userflag==2) {
+            userflag = pref.getInt("userflag", 0);
+            if (userflag == 2) {
                 return titles.length;
-            }
-            else if(userflag==1){
+            } else if (userflag == 1) {
                 return titles2.length;
-            }
-            else {
+            } else {
                 return titles1.length;
             }
         }
@@ -259,53 +250,47 @@ public class FragmentPage3 extends Fragment{
         super.onResume();
     }
 
-    private class fragmentThread implements Runnable
-    {
+    private class fragmentThread implements Runnable {
         final HashMap<String, String> params = new HashMap<>();
+
         public HashMap<String, String> getParams() {
-            params.put("key","teacher");
+            params.put("key", "teacher");
             return params;
         }
+
         public HashMap<String, String> getParams1() {
-            params.put("baby","query");
+            params.put("baby", "query");
             return params;
         }
+
         @Override
         public void run() {
             /*try {*/
-                teacherList=new ArrayList<>();
-                String res = HttpUtil.post(KGURL,getParams());
-                String inf=HttpUtil.post(KGURL1,getParams1());
-                int i[]={0,0};
-            if(!"]".equals(res)){
-                i[0]=1;
-                if(!"]".equals(inf))
-                {
-                   i[1]=1;
-                    Message msg=new Message();
-                    msg.obj=i;
+            teacherList = new ArrayList<>();
+            String res = HttpUtil.post(KGURL, getParams());
+            String inf = HttpUtil.post(KGURL1, getParams1());
+            int i[] = {0, 0};
+            if (!"]".equals(res)) {
+                i[0] = 1;
+                if (!"]".equals(inf)) {
+                    i[1] = 1;
+                    Message msg = new Message();
+                    msg.obj = i;
+                    frageHandler.sendMessage(msg);
+                } else {
+                    Message msg = new Message();
+                    msg.obj = i;
                     frageHandler.sendMessage(msg);
                 }
-               else
-                {
-                    Message msg=new Message();
-                    msg.obj=i;
+            } else {
+                if (!"]".equals(inf)) {
+                    i[1] = 1;
+                    Message msg = new Message();
+                    msg.obj = i;
                     frageHandler.sendMessage(msg);
-                }
-            }
-            else
-            {
-                if(!"]".equals(inf))
-                {
-                    i[1]=1;
-                    Message msg=new Message();
-                    msg.obj=i;
-                    frageHandler.sendMessage(msg);
-                }
-                else
-                {
-                    Message msg=new Message();
-                    msg.obj=i;
+                } else {
+                    Message msg = new Message();
+                    msg.obj = i;
                     frageHandler.sendMessage(msg);
                 }
 

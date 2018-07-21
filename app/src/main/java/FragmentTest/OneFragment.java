@@ -48,30 +48,30 @@ public class OneFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.onefragment, null);
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        mRecyclerView=(RecyclerView)getActivity().findViewById(R.id.recyclerview_teacher_info);
+        mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_teacher_info);
         /*mRecyclerView.setHasFixedSize(true);*/
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         new Thread(new teacherThread()).start();
-        teacherHandler=new Handler(){
+        teacherHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch ((int)msg.obj)
-                {
+                switch ((int) msg.obj) {
                     case 1:
-                        TeacherAdapter teacherAdapter=new TeacherAdapter(R.layout.teacher_item,teacherList,getView());
+                        TeacherAdapter teacherAdapter = new TeacherAdapter(R.layout.teacher_item, teacherList, getView());
                         mRecyclerView.setAdapter(teacherAdapter);
                         teacherAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent=new Intent(getActivity(),Teacher_info.class);
-                                intent.putExtra("teachername",teacherList.get(position).getName());
-                                intent.putExtra("teacherphone",teacherList.get(position).getPhone());
-                                intent.putExtra("summary",teacherList.get(position).getSummary());
+                                Intent intent = new Intent(getActivity(), Teacher_info.class);
+                                intent.putExtra("teachername", teacherList.get(position).getName());
+                                intent.putExtra("teacherphone", teacherList.get(position).getPhone());
+                                intent.putExtra("summary", teacherList.get(position).getSummary());
                                 startActivity(intent);
                             }
                         });
@@ -87,8 +87,8 @@ public class OneFragment extends Fragment {
                             }
                         });*/
                         break;
-                        default:
-                            break;
+                    default:
+                        break;
                 }
             }
         };
@@ -96,51 +96,48 @@ public class OneFragment extends Fragment {
 
     }
 
-    public class teacherThread implements Runnable{
+    public class teacherThread implements Runnable {
 
         final HashMap<String, String> params = new HashMap<>();
+
         public HashMap<String, String> getParams() {
-            params.put("key","teacher");
+            params.put("key", "teacher");
             return params;
         }
+
         @Override
         public void run() {
             try {
-                teacherList=new ArrayList<>();
-                String res = HttpUtil.post(KGURL,getParams());
-                JSONArray jsonArray =new JSONArray(res);
-                for(int i=0;i<jsonArray.length();i++) {
+                teacherList = new ArrayList<>();
+                String res = HttpUtil.post(KGURL, getParams());
+                JSONArray jsonArray = new JSONArray(res);
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if(jsonObject!=null && jsonArray.length()>0) {
-                        try{
-                            URLDecoder.decode(jsonObject.getString("teachername"),"utf-8");
-                            URLDecoder.decode(jsonObject.getString("sex"),"utf-8");
-                            URLDecoder.decode(jsonObject.getString("summary"),"utf-8");
-                        }catch (Exception e)
-                        {
+                    if (jsonObject != null && jsonArray.length() > 0) {
+                        try {
+                            URLDecoder.decode(jsonObject.getString("teachername"), "utf-8");
+                            URLDecoder.decode(jsonObject.getString("sex"), "utf-8");
+                            URLDecoder.decode(jsonObject.getString("summary"), "utf-8");
+                        } catch (Exception e) {
                             e.getMessage();
                         }
-                        Teacher teacher=new Teacher(jsonObject.getString("teachername"),jsonObject.getString("sex"),jsonObject.getInt("age"),jsonObject.getString("summary"),jsonObject.getString("phone"));
+                        Teacher teacher = new Teacher(jsonObject.getString("teachername"), jsonObject.getString("sex"), jsonObject.getInt("age"), jsonObject.getString("summary"), jsonObject.getString("phone"));
                         teacherList.add(teacher);
-                    }
-                    else
-                    {
-                        Log.i("jsonArray","error");
+                    } else {
+                        Log.i("jsonArray", "error");
                     }
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(!teacherList.isEmpty()){
-                Message msg=new Message();
-                msg.obj=1;
+            if (!teacherList.isEmpty()) {
+                Message msg = new Message();
+                msg.obj = 1;
                 teacherHandler.sendMessage(msg);
-            }
-            else
-            {
-                Message msg=new Message();
-                msg.obj=0;
+            } else {
+                Message msg = new Message();
+                msg.obj = 0;
                 teacherHandler.sendMessage(msg);
             }
 

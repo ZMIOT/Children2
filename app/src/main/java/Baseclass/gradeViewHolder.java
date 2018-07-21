@@ -18,15 +18,15 @@ public class gradeViewHolder extends BaseViewHolder {
     public TextView title;
     public TextView time;
     public TextView content;
-    public gradeViewHolder(View view)
-    {
+
+    public gradeViewHolder(View view) {
         super(view);
-        nineGrid=(NineGridView)view.findViewById(R.id.nineGrid);
-        username=(TextView)view.findViewById(R.id.user_grade);
-        title=(TextView)view.findViewById(R.id.title_01_grade);
-        time=(TextView)view.findViewById(R.id.time_grade);
-        content=(TextView)view.findViewById(R.id.content_grade);
-        photo=(ImageView)view.findViewById(R.id.user_avatar_grade);
+        nineGrid = (NineGridView) view.findViewById(R.id.nineGrid);
+        username = (TextView) view.findViewById(R.id.user_grade);
+        title = (TextView) view.findViewById(R.id.title_01_grade);
+        time = (TextView) view.findViewById(R.id.time_grade);
+        content = (TextView) view.findViewById(R.id.content_grade);
+        /* photo=(ImageView)view.findViewById(R.id.user_avatar_grade);*/
     }
 
     public TextView getTitle() {
@@ -38,7 +38,7 @@ public class gradeViewHolder extends BaseViewHolder {
     }
 
 
-    public gradeViewHolder setUserAvatar( int viewId,  String imageResId) {
+    public gradeViewHolder setUserAvatar(int viewId, String imageResId) {
         return this;
     }
 

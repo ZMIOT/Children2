@@ -28,21 +28,22 @@ import Baseclass.Grade;
 import Baseclass.gradeViewHolder;
 
 
+public class GradeAdapter extends BaseQuickAdapter<Grade, gradeViewHolder> {
 
-public class GradeAdapter extends BaseQuickAdapter <Grade,gradeViewHolder>{
+    private List<Grade> mdata;
 
-private List<Grade> mdata;
     public GradeAdapter(int layoutResId, List data) {
         super(layoutResId, data);
-        this.mdata=data;
+        this.mdata = data;
     }
+
     @Override
     protected void convert(gradeViewHolder helper, Grade item) {
-        helper.setText(R.id.title_01_grade,item.getTitle());
-        helper.setText(R.id.content_grade,item.getContent());
-        helper.setText(R.id.time_grade,item.getTime());
+        helper.setText(R.id.title_01_grade, item.getTitle());
+        helper.setText(R.id.content_grade, item.getContent());
+        helper.setText(R.id.time_grade, item.getTime());
         /*helper.setImageBitmap(R.id.user_avatar_grade,item.);*/
-        Glide.with(mContext).load(item.getUserAvatar()).into(helper.getPhoto());
+        /*Glide.with(mContext).load(item.getUserAvatar()).into(helper.getPhoto());*/
         ArrayList<ImageInfo> imageInfo = new ArrayList<>();
         List<EvaluationPic> imageDetails = item.getAttachments();
         if (imageDetails != null) {
@@ -53,7 +54,7 @@ private List<Grade> mdata;
                 imageInfo.add(info);
             }
         }
-        helper.nineGrid.setAdapter(new NineGridViewClickAdapter(mContext,imageInfo));
+        helper.nineGrid.setAdapter(new NineGridViewClickAdapter(mContext, imageInfo));
     }
 }
 

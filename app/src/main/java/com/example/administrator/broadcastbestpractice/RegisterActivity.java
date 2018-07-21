@@ -27,42 +27,40 @@ public class RegisterActivity extends BaseActivity {
     private String info;
 
     private TextView reg1;
-    public  TextView user=null,psd=null;
+    public TextView user = null, psd = null;
     private SharedPreferences pref;
     private int userflag;
     private View view;
     private EditText checkcode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         TextView register = (TextView) findViewById(R.id.buttonregister);//点击注册的按钮
-        user= (EditText) findViewById(R.id.user);//user文本
+        user = (EditText) findViewById(R.id.user);//user文本
         psd = (EditText) findViewById(R.id.password1);
         final EditText Recheck = (EditText) findViewById(R.id.recheck);
         final TextView login = (TextView) findViewById(R.id.login);
-        final RadioButton parent=(RadioButton)findViewById(R.id.parent);
-        final RadioButton teacher=(RadioButton)findViewById(R.id.teacher);
-        final RadioButton admin=(RadioButton)findViewById(R.id.administor);
-        checkcode=(EditText)findViewById(R.id.checkcode);
-        final LinearLayout tt=(LinearLayout)findViewById(R.id.regiter_checkcode_wrapper);
+        final RadioButton parent = (RadioButton) findViewById(R.id.parent);
+        final RadioButton teacher = (RadioButton) findViewById(R.id.teacher);
+        final RadioButton admin = (RadioButton) findViewById(R.id.administor);
+        checkcode = (EditText) findViewById(R.id.checkcode);
+        final LinearLayout tt = (LinearLayout) findViewById(R.id.regiter_checkcode_wrapper);
         RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radioGroup);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton radioButton = (RadioButton) findViewById(checkedId);
-                if(radioButton.getId()==teacher.getId())
-                {
-                     userflag=1;
-                   tt.setVisibility(View.VISIBLE);
+                if (radioButton.getId() == teacher.getId()) {
+                    userflag = 1;
+                    tt.setVisibility(View.VISIBLE);
                 }
-                if(radioButton.getId()==parent.getId())
-                {
-                    userflag=0;
+                if (radioButton.getId() == parent.getId()) {
+                    userflag = 0;
                     tt.setVisibility(View.GONE);
                 }
-                if(radioButton.getId()==admin.getId())
-                {
-                     userflag=2;
+                if (radioButton.getId() == admin.getId()) {
+                    userflag = 2;
                     tt.setVisibility(View.VISIBLE);
                 }
             }
@@ -79,12 +77,10 @@ public class RegisterActivity extends BaseActivity {
                  */
                 if (password.equals(recheck) && !password.isEmpty() && !username.isEmpty()) {
                     new Thread(new MyThread()).start();
-                }
-                else if(!checkNetwork()){
-                    Toast.makeText(RegisterActivity.this,"请您连接网络",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this,"账号不正确或者密码不一致",Toast.LENGTH_SHORT).show();
+                } else if (!checkNetwork()) {
+                    Toast.makeText(RegisterActivity.this, "请您连接网络", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "账号不正确或者密码不一致", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -102,17 +98,16 @@ public class RegisterActivity extends BaseActivity {
     public class MyThread implements Runnable {
         @Override
         public void run() {
-            String code=checkcode.getText().toString();
-            if(code.equals("CCC")){
-                info = WebService.executeHttpGetForReg(user.getText().toString(), psd.getText().toString(),userflag,code);
-            }
-            else{
-                code=null;
-                info = WebService.executeHttpGetForReg(user.getText().toString(), psd.getText().toString(),userflag,code);
+            String code = checkcode.getText().toString();
+            if (code.equals("CCC")) {
+                info = WebService.executeHttpGetForReg(user.getText().toString(), psd.getText().toString(), userflag, code);
+            } else {
+                code = null;
+                info = WebService.executeHttpGetForReg(user.getText().toString(), psd.getText().toString(), userflag, code);
             }
             Message message = new Message();
-            message.obj=info;
-            Log.i("reg",info);
+            message.obj = info;
+            Log.i("reg", info);
             handler.sendMessage(message);
 
            /* if(info.equals("success")){
@@ -134,22 +129,21 @@ public class RegisterActivity extends BaseActivity {
         }
         return false;
     }
-    private Handler handler=new Handler(){
+
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-                if(msg.equals("success")){
-                    Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                }
-                else if(info.equals("该账号已经注册过了")){
-                    Toast.makeText(RegisterActivity.this,"账号已经注册过了",Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(RegisterActivity.this,"注册成功",Toast.LENGTH_SHORT).show();
-                }
-
+            if (msg.equals("success")) {
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+            } else if (info.equals("该账号已经注册过了")) {
+                Toast.makeText(RegisterActivity.this, "账号已经注册过了", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
             }
+
+        }
 
     };
 

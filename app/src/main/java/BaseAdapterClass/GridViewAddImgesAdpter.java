@@ -20,7 +20,7 @@ import java.util.Map;
  * com.bm.falvzixun.adapter.GridViewAddImgAdpter
  *
  * @author yuandl on 2015/12/24.
- *         添加上传图片适配器
+ * 添加上传图片适配器
  */
 public class GridViewAddImgesAdpter extends BaseAdapter {
     private List<Map<String, Object>> datas;

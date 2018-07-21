@@ -61,7 +61,7 @@ public class WebService {
         return null;
     }
 
-    public static String executeHttpGetChangeState(String username,int state) {
+    public static String executeHttpGetChangeState(String username, int state) {
 
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -297,7 +297,7 @@ public class WebService {
     }
     return"服务器连接超时...";
 }*/
-    public static String executeHttpGetForDateAndSex(String username, String birth,String sex) {
+    public static String executeHttpGetForDateAndSex(String username, String birth, String sex) {
 
         HttpURLConnection conn = null;
         InputStream is = null;
@@ -306,7 +306,7 @@ public class WebService {
             // 用户名 密码
             // URL 地址
             String path = "http://" + IP + "/HelloWeb/SexLet";
-            path = path + "?username=" + username + "&sex=" + sex+"&birth=" + birth;
+            path = path + "?username=" + username + "&sex=" + sex + "&birth=" + birth;
             conn = (HttpURLConnection) new URL(path).openConnection();
             conn.setConnectTimeout(3000); // 设置超时时间
             conn.setReadTimeout(3000);
@@ -340,6 +340,7 @@ public class WebService {
         return "服务器连接超时...";
 
     }
+
     public static String executeQueryAll(String username) {
 
         HttpURLConnection conn = null;

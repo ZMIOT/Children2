@@ -37,6 +37,7 @@ public class FragmentPage5 extends Fragment {
     private LinearLayout baby_info;
     private MyDatabasehelper dbhelper;
     private LinearLayout baby_health;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -48,14 +49,14 @@ public class FragmentPage5 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        final LinearLayout update_password=(LinearLayout)getView().findViewById(R.id.update_password);
+        final LinearLayout update_password = (LinearLayout) getView().findViewById(R.id.update_password);
         /*LinearLayout admin=(LinearLayout)getView().findViewById(R.id.admin);*/
-        LinearLayout linearLayout=(LinearLayout)getView().findViewById(R.id.MyInfo);
-        final LinearLayout set_up=(LinearLayout)getView().findViewById(R.id.set_up);
-        linearLayout.setOnClickListener(new View.OnClickListener(){
+        LinearLayout linearLayout = (LinearLayout) getView().findViewById(R.id.MyInfo);
+        final LinearLayout set_up = (LinearLayout) getView().findViewById(R.id.set_up);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context=getActivity();
+                Context context = getActivity();
                 Intent intent = new Intent(context, Personal_info.class);
                 context.startActivity(intent);
             }
@@ -63,24 +64,24 @@ public class FragmentPage5 extends Fragment {
         set_up.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context=getActivity();
+                Context context = getActivity();
                 Intent intent = new Intent(context, Set_up.class);
                 context.startActivity(intent);
             }
         });
-        baby_info=(LinearLayout)getActivity().findViewById(R.id.baby_show_info);
+        baby_info = (LinearLayout) getActivity().findViewById(R.id.baby_show_info);
         baby_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),baby_base_info.class);
+                Intent intent = new Intent(getActivity(), baby_base_info.class);
                 startActivity(intent);
             }
         });
-        baby_health=(LinearLayout)getActivity().findViewById(R.id.baby_health);
+        baby_health = (LinearLayout) getActivity().findViewById(R.id.baby_health);
         baby_health.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Baby_health.class);
+                Intent intent = new Intent(getActivity(), Baby_health.class);
                 startActivity(intent);
             }
         });
@@ -94,7 +95,7 @@ public class FragmentPage5 extends Fragment {
         update_password.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),Update_password.class);
+                Intent intent = new Intent(getActivity(), Update_password.class);
                 startActivity(intent);
             }
         });
@@ -105,42 +106,39 @@ public class FragmentPage5 extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        SharedPreferences pref=getActivity().getSharedPreferences("data",Context.MODE_PRIVATE);
-        ImageView tx_info=(ImageView)getView().findViewById(R.id.tx_info);
-        TextView fristname=(TextView)getView().findViewById(R.id.fristname);
-        TextView autograph=(TextView)getView().findViewById(R.id.autograph);
-        String admin=pref.getString("username","");
-        dbhelper=new MyDatabasehelper(getActivity(),"User.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select * from User where username=?",new String[]{admin});
+        SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        ImageView tx_info = (ImageView) getView().findViewById(R.id.tx_info);
+        TextView fristname = (TextView) getView().findViewById(R.id.fristname);
+        TextView autograph = (TextView) getView().findViewById(R.id.autograph);
+        String admin = pref.getString("username", "");
+        dbhelper = new MyDatabasehelper(getActivity(), "User.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from User where username=?", new String[]{admin});
         cursor.moveToFirst();
-       String jug=cursor.getString(cursor.getColumnIndex("nickname"));
-        String jug1=cursor.getString(cursor.getColumnIndex("autograph"));
-        if (cursor.moveToFirst()&&"".equals(jug)){
+        String jug = cursor.getString(cursor.getColumnIndex("nickname"));
+        String jug1 = cursor.getString(cursor.getColumnIndex("autograph"));
+        if (cursor.moveToFirst() && "".equals(jug)) {
             fristname.setText("昵称");
-        }
-        else {
+        } else {
 
             fristname.setText(cursor.getString(cursor.getColumnIndex("nickname")));
         }
-        if (cursor.moveToFirst()&&"".equals(jug1)){
+        if (cursor.moveToFirst() && "".equals(jug1)) {
             autograph.setText("个性签名~");
-        }
-        else
-        {
+        } else {
             autograph.setText(cursor.getString(cursor.getColumnIndex("autograph")));
         }
         /**
          * 将数据库中的图片取出
          */
-           if(cursor.moveToFirst()&&cursor.getColumnIndex("touxiang")!=0){
-               try {
-                   byte[] b = cursor.getBlob(cursor.getColumnIndex("touxiang"));
-                   Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length, null);
-                   tx_info.setImageBitmap(bitmap);
-               }catch (Exception e){
-                   e.getMessage();
-               }
+        if (cursor.moveToFirst() && cursor.getColumnIndex("touxiang") != 0) {
+            try {
+                byte[] b = cursor.getBlob(cursor.getColumnIndex("touxiang"));
+                Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length, null);
+                tx_info.setImageBitmap(bitmap);
+            } catch (Exception e) {
+                e.getMessage();
+            }
 
 
                     /*else {
@@ -152,9 +150,9 @@ public class FragmentPage5 extends Fragment {
                         tx_info.setImageBitmap(bitmap);
 
                     }*/
-            }
+        }
 
         /**/
-       /* cursor.close();*/
+        /* cursor.close();*/
     }
 }

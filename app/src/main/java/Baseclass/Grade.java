@@ -10,7 +10,7 @@ public class Grade {
     public Uri UserAvatar;
     public String time;
     public String Title;
-   /* public int ImageResource;*/
+    /* public int ImageResource;*/
     public String content;
     public String username;
 
@@ -62,13 +62,13 @@ public class Grade {
         this.username = username;
     }
 
-    public Grade(){
+    public Grade() {
 
     }
-    public Grade(Uri UserAvatar, String time, String title, int ImageResource)
-    {
-        this.UserAvatar=UserAvatar;
-        this.time=time;
-        this.Title=title;
+
+    public Grade(Uri UserAvatar, String time, String title, int ImageResource) {
+        this.UserAvatar = UserAvatar;
+        this.time = time;
+        this.Title = title;
     }
 }

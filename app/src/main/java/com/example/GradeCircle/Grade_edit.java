@@ -56,7 +56,7 @@ import java.text.SimpleDateFormat;
 import BaseAdapterClass.GridViewAddImgesAdpter;
 import utils.HttpUtil;
 
-public class Grade_edit extends AppCompatActivity  implements View.OnClickListener {
+public class Grade_edit extends AppCompatActivity implements View.OnClickListener {
     private GridView gw;
     private List<Map<String, Object>> datas;
     private GridViewAddImgesAdpter gridViewAddImgesAdpter;
@@ -83,7 +83,7 @@ public class Grade_edit extends AppCompatActivity  implements View.OnClickListen
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);*/
-        TextView cancel=(TextView)findViewById(R.id.cancel_grade_edit);
+        TextView cancel = (TextView) findViewById(R.id.cancel_grade_edit);
         gw = (GridView) findViewById(R.id.gw_grade);
         datas = new ArrayList<>();
         gridViewAddImgesAdpter = new GridViewAddImgesAdpter(datas, this);
@@ -109,12 +109,13 @@ public class Grade_edit extends AppCompatActivity  implements View.OnClickListen
     @Override
     public void onClick(View v) {
         savetoDB(uriList);
-       /* new Thread(new imgThread()).start();*/
-        Intent intent=new Intent();
-        intent.putExtra("uris",uriList.toArray());
-        setResult(RESULT_OK,intent);
+        /* new Thread(new imgThread()).start();*/
+        Intent intent = new Intent();
+        intent.putExtra("uris", uriList.toArray());
+        setResult(RESULT_OK, intent);
         finish();
     }
+
     /**
      * 选择图片对话框
      */
@@ -221,7 +222,7 @@ public class Grade_edit extends AppCompatActivity  implements View.OnClickListen
                     Uri uri = data.getData();
                     //存储到本地数据库
                     uriList.add(uri);
-                   /* slist.add(uri);*/
+                    /* slist.add(uri);*/
                     String[] proj = {MediaStore.Images.Media.DATA};
                     //好像是android多媒体数据库的封装接口，具体的看Android文档
                     Cursor cursor = managedQuery(uri, proj, null, null, null);
@@ -298,12 +299,14 @@ public class Grade_edit extends AppCompatActivity  implements View.OnClickListen
             }
         }.start();
     }
+
     public void photoPath(String path) {
         Map<String, Object> map = new HashMap<>();
         map.put("path", path);
         datas.add(map);
         gridViewAddImgesAdpter.notifyDataSetChanged();
     }
+
     public void savetoDB(List<Uri> uris) {
         SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
         String user = pref.getString("username", "");

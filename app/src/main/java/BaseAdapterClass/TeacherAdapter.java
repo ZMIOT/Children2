@@ -14,7 +14,7 @@ import java.util.List;
 
 import Baseclass.Teacher;
 
-public class TeacherAdapter extends BaseQuickAdapter <Teacher,BaseViewHolder>{
+public class TeacherAdapter extends BaseQuickAdapter<Teacher, BaseViewHolder> {
     private View view;
 
     public TeacherAdapter(int layoutResId, @Nullable List<Teacher> data, View view) {
@@ -25,10 +25,10 @@ public class TeacherAdapter extends BaseQuickAdapter <Teacher,BaseViewHolder>{
     @Override
     protected void convert(BaseViewHolder helper, Teacher item) {
         /*ImageView head_teacher=view.findViewById(R.id.head_teacher);*/
-        helper.setText(R.id.name_teacher,item.getName());
-       /* helper.setText(R.id.phone_teacher,item.getPhone());*/
+        helper.setText(R.id.name_teacher, item.getName());
+        /* helper.setText(R.id.phone_teacher,item.getPhone());*/
 
-       helper.setText(R.id.phone_teacher,item.getPhone());
+        helper.setText(R.id.phone_teacher, item.getPhone());
        /* if(item.getImage()!=null){
             Glide.with(mContext).load(item.getImage()).into(head_teacher);
         }

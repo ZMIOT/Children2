@@ -74,7 +74,7 @@ public class baby_base_info extends AppCompatActivity {
         Button next_grade = (Button) findViewById(R.id.next_grade);
         baby_sex = (LinearLayout) findViewById(R.id.baby_sex);
         show_sex = (TextView) findViewById(R.id.show_sex);
-        show_birth=(TextView)findViewById(R.id.show_birth);
+        show_birth = (TextView) findViewById(R.id.show_birth);
         baby_relationship = (LinearLayout) findViewById(R.id.baby_relationship);
         show_relationship = (TextView) findViewById(R.id.show_relationship);
         parent_phone = (EditText) findViewById(R.id.parent_phone);
@@ -82,12 +82,11 @@ public class baby_base_info extends AppCompatActivity {
         baby_summary = (EditText) findViewById(R.id.baby_summary);
 
         new Thread(new baThread()).start();
-        bhandler=new Handler(){
+        bhandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch ((int)msg.obj)
-                {
+                switch ((int) msg.obj) {
                     case 1:
                         show_sex.setText(babyList.get(0).getSex());
                         baby_name.setText(babyList.get(0).getBabyname());
@@ -96,8 +95,6 @@ public class baby_base_info extends AppCompatActivity {
                 }
             }
         };
-
-
 
 
         baby_relationship.setOnClickListener(new View.OnClickListener() {
@@ -191,16 +188,17 @@ public class baby_base_info extends AppCompatActivity {
         dialog.setView(view);
         dialog.show();
     }
+
     /**
      * 性别
      */
     private void showsexWindow() {
-        SharedPreferences pref=getSharedPreferences("data",MODE_PRIVATE);
-        final String ad=pref.getString("username","");
-        MyDatabasehelper dbhelper=new MyDatabasehelper(baby_base_info.this,"User.db",null,3);
-        final SQLiteDatabase db=dbhelper.getWritableDatabase();
+        SharedPreferences pref = getSharedPreferences("data", MODE_PRIVATE);
+        final String ad = pref.getString("username", "");
+        MyDatabasehelper dbhelper = new MyDatabasehelper(baby_base_info.this, "User.db", null, 3);
+        final SQLiteDatabase db = dbhelper.getWritableDatabase();
 
-        final Cursor cursor=db.rawQuery("select * from User where username=?",new String[]{ad});
+        final Cursor cursor = db.rawQuery("select * from User where username=?", new String[]{ad});
         AlertDialog.Builder builder = new AlertDialog.Builder(baby_base_info.this);
         final AlertDialog dialog = builder.create();
         View view = View.inflate(baby_base_info.this, R.layout.sex_item, null);
@@ -211,15 +209,14 @@ public class baby_base_info extends AppCompatActivity {
         man.setOnClickListener(new View.OnClickListener() {// 男
             @Override
             public void onClick(View v) {
-                final ContentValues values=new ContentValues();
-                values.put("sex",man.getText().toString());
-                if(cursor.moveToFirst())
-                {
-                    db.update("User",values,"username=?",new String[]{ad});
+                final ContentValues values = new ContentValues();
+                values.put("sex", man.getText().toString());
+                if (cursor.moveToFirst()) {
+                    db.update("User", values, "username=?", new String[]{ad});
                 }
                 try {
                     show_sex.setText(man.getText().toString());
-                }catch (Exception e){
+                } catch (Exception e) {
 
                 }
                 cursor.close();
@@ -229,11 +226,10 @@ public class baby_base_info extends AppCompatActivity {
         woman.setOnClickListener(new View.OnClickListener() {// 女
             @Override
             public void onClick(View v) {
-                final ContentValues values=new ContentValues();
-                values.put("sex",woman.getText().toString());
-                if(cursor.moveToFirst())
-                {
-                    db.update("User",values,"username=?",new String[]{ad});
+                final ContentValues values = new ContentValues();
+                values.put("sex", woman.getText().toString());
+                if (cursor.moveToFirst()) {
+                    db.update("User", values, "username=?", new String[]{ad});
                 }
                 cursor.close();
                 dialog.dismiss();
@@ -242,11 +238,12 @@ public class baby_base_info extends AppCompatActivity {
         dialog.setView(view);
         dialog.show();
     }
+
     /**
      * 日期弹窗
      */
     protected void showDatePickDlg() {
-        show_birth=(TextView)findViewById(R.id.show_birth);
+        show_birth = (TextView) findViewById(R.id.show_birth);
         final DatePickDialog dialog = new DatePickDialog(this);
         //设置上下年分限制
         dialog.setYearLimt(5);
@@ -265,55 +262,57 @@ public class baby_base_info extends AppCompatActivity {
         dialog.setOnSureLisener(new OnSureLisener() {
             @Override
             public void onSure(Date date) {
-                dbhelper=new MyDatabasehelper(baby_base_info.this,"User.db",null,3);
-                editor=getSharedPreferences("info",MODE_PRIVATE).edit();
-                pref=getSharedPreferences("data",MODE_PRIVATE);
+                dbhelper = new MyDatabasehelper(baby_base_info.this, "User.db", null, 3);
+                editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+                pref = getSharedPreferences("data", MODE_PRIVATE);
                 SimpleDateFormat bartDateFormat = new SimpleDateFormat
                         ("yyyy-MM-dd");
-                user=pref.getString("username","");
+                user = pref.getString("username", "");
                 show_birth.setText(bartDateFormat.format(date));
-                SQLiteDatabase db=dbhelper.getWritableDatabase();
-                ContentValues values=new ContentValues();
-                values.put("birth",bartDateFormat.format(date));
-                db.update("User",values,"username=?",new String[]{user});
-                editor.putString("birth",bartDateFormat.format(date));
+                SQLiteDatabase db = dbhelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("birth", bartDateFormat.format(date));
+                db.update("User", values, "username=?", new String[]{user});
+                editor.putString("birth", bartDateFormat.format(date));
             }
         });
         dialog.show();
     }
 
 
-    private class baThread implements Runnable{
-        SharedPreferences pr=getSharedPreferences("data",MODE_PRIVATE);
-        String user=pr.getString("username","");
+    private class baThread implements Runnable {
+        SharedPreferences pr = getSharedPreferences("data", MODE_PRIVATE);
+        String user = pr.getString("username", "");
         final HashMap<String, String> params = new HashMap<>();
+
         public HashMap<String, String> getParams() {
-            params.put("baby","query one row");
-            params.put("username",user);
+            params.put("baby", "query one row");
+            params.put("username", user);
             return params;
         }
+
         @Override
         public void run() {
             try {
-                babyList=new ArrayList<>();
-                String res = HttpUtil.post(KGURL,getParams());
+                babyList = new ArrayList<>();
+                String res = HttpUtil.post(KGURL, getParams());
                 JSONArray jsonArray = new JSONArray(res);
                 String babyname = null;
                 String sex = null;
                 String summary = null;
-                String relationship=null;
+                String relationship = null;
 
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     if (jsonObject != null && jsonArray.length() > 0) {
                         try {
-                            sex=URLDecoder.decode(jsonObject.getString("sex"),"utf-8");
+                            sex = URLDecoder.decode(jsonObject.getString("sex"), "utf-8");
                             babyname = URLDecoder.decode(jsonObject.getString("babyname"), "UTF-8");
-                            relationship=URLDecoder.decode(jsonObject.getString("relationship"),"utf-8");
+                            relationship = URLDecoder.decode(jsonObject.getString("relationship"), "utf-8");
                         } catch (Exception e) {
                             e.getMessage();
                         }
-                        Baby baby = new Baby(jsonObject.getInt("babyid"), babyname,sex,jsonObject.getString("age"),relationship);
+                        Baby baby = new Baby(jsonObject.getInt("babyid"), babyname, sex, jsonObject.getString("age"), relationship);
                         babyList.add(baby);
                     } else {
                         Log.i("jsonArray", "error");
@@ -327,12 +326,10 @@ public class baby_base_info extends AppCompatActivity {
                 Message msg = new Message();
                 msg.obj = 1;
                 bhandler.sendMessage(msg);
-            }
-            else
-            {
+            } else {
                 Message msg = new Message();
                 msg.obj = 0;
-                Log.i("fff",""+babyList);
+                Log.i("fff", "" + babyList);
                 bhandler.sendMessage(msg);
             }
         }

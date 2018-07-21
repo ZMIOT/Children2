@@ -19,11 +19,12 @@ public class WebServicePost {
     // IP地址
     //private static String IP = "192.168.1.103:8081";
     private static String IP = "192.168.43.143:8081";
+
     /**
      * 通过 POST 方式获取HTTP服务器数据
      *
      * @param
-     *  @param
+     * @param
      * @return
      * @throws Exception
      */

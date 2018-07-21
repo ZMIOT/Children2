@@ -7,13 +7,14 @@ public class Comment {
     private String url;
     private String babyname;
     private String teachername;
-    public Comment(int teacherid,String url, String babyname,String teachername){
-        this.teacherid=teacherid;
-        this.babyid=babyid;
+
+    public Comment(int teacherid, String url, String babyname, String teachername) {
+        this.teacherid = teacherid;
+        this.babyid = babyid;
         /*this.comment=comment;*/
-        this.babyname=babyname;
-        this.teachername=teachername;
-        this.url=url;
+        this.babyname = babyname;
+        this.teachername = teachername;
+        this.url = url;
     }
 
     public String getUrl() {

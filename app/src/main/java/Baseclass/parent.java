@@ -12,17 +12,17 @@ public class parent {
     public int childid;
     public String childname;
 
-    public parent(int parentid,String username,String nickname,String birth,String autograph,String sex,String touxiang,String password,int childid,String childname){
-        this.parentid=parentid;
-        this.username=username;
-        this.nickname=nickname;
-        this.birth=birth;
-        this.autograph=autograph;
-        this.sex=sex;
-        this.touxiang=touxiang;
-        this.password=password;
-        this.childid=childid;
-        this.childname=childname;
+    public parent(int parentid, String username, String nickname, String birth, String autograph, String sex, String touxiang, String password, int childid, String childname) {
+        this.parentid = parentid;
+        this.username = username;
+        this.nickname = nickname;
+        this.birth = birth;
+        this.autograph = autograph;
+        this.sex = sex;
+        this.touxiang = touxiang;
+        this.password = password;
+        this.childid = childid;
+        this.childname = childname;
     }
 
     public int getParentid() {

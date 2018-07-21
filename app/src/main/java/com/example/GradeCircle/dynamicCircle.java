@@ -14,8 +14,8 @@ public class dynamicCircle extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dynamic_circle);
-        Button album=(Button)findViewById(R.id.album);
-        Button comment=(Button)findViewById(R.id.comment);
+        Button album = (Button) findViewById(R.id.album);
+        Button comment = (Button) findViewById(R.id.comment);
         album.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

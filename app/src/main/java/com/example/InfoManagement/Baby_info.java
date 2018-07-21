@@ -17,21 +17,22 @@ public class Baby_info extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_baby_info);
-        final TextView summaryArea=(TextView) findViewById(R.id.baby_content_text);
-        Toolbar toolbar=(Toolbar)findViewById(R.id.baby_toolbar);
-        TextView tea=(TextView)findViewById(R.id.baby_name);
-        ImageView comment_detail_bg=(ImageView)findViewById(R.id.baby_detail_bg_view);
+        final TextView summaryArea = (TextView) findViewById(R.id.baby_content_text);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.baby_toolbar);
+        TextView tea = (TextView) findViewById(R.id.baby_name);
+        ImageView comment_detail_bg = (ImageView) findViewById(R.id.baby_detail_bg_view);
 
-        Intent intent=getIntent();
-        String babyname=intent.getStringExtra("babyname");
-        String parent_phone=intent.getStringExtra("parent_phone");
-        String summary=intent.getStringExtra("summary");
+        Intent intent = getIntent();
+        String babyname = intent.getStringExtra("babyname");
+        String parent_phone = intent.getStringExtra("parent_phone");
+        String summary = intent.getStringExtra("summary");
 
         toolbar.setTitle(babyname);
         tea.setText(parent_phone);
         summaryArea.setText(summary);
         Glide.with(getApplicationContext()).load(R.mipmap.bg_ios).into(comment_detail_bg);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

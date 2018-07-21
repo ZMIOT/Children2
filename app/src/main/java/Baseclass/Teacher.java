@@ -10,13 +10,13 @@ public class Teacher {
     private String summary;
     private String phone;
     private Uri Image;
-    public Teacher(String name,String sex,int age,String summary,String phone)
-    {
-        this.name=name;
-        this.sex=sex;
-        this.age=age;
-        this.summary=summary;
-        this.phone=phone;
+
+    public Teacher(String name, String sex, int age, String summary, String phone) {
+        this.name = name;
+        this.sex = sex;
+        this.age = age;
+        this.summary = summary;
+        this.phone = phone;
     }
 
     public String getName() {

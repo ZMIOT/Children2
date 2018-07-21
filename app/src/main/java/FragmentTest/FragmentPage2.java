@@ -66,7 +66,7 @@ import static android.support.v4.provider.FontsContractCompat.FontRequestCallbac
 
 /*import static android.support.v4.provider.FontsContractCompat.FontRequestCallback.RESULT_OK;*/
 
-public class FragmentPage2 extends Fragment{
+public class FragmentPage2 extends Fragment {
     MaterialTabHost tabHost;
     ViewPager pager;
     private MyDatabasehelper dbhelper;
@@ -77,7 +77,7 @@ public class FragmentPage2 extends Fragment{
     private TextView content;
     private RecyclerView mRecyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
-    private  Bitmap  photoBmp;
+    private Bitmap photoBmp;
     private Uri uri;
     private FloatingActionButton grade_info_add;
     private ViewPager viewPager;
@@ -88,17 +88,20 @@ public class FragmentPage2 extends Fragment{
     private ImmersionBar mImmersionBar;
     private MyDatabasehelper imghelper;
     private SharedPreferences pref;
-    private int userflag=0;
-    private  GradeAdapter adapter;
+    private int userflag = 0;
+    private GradeAdapter adapter;
     private List<EvaluationPic> imglist;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view= inflater.inflate(R.layout.fragment2,container,false);
+        View view = inflater.inflate(R.layout.fragment2, container, false);
         return view;
     }
 
-    /** Picasso 加载 */
+    /**
+     * Picasso 加载
+     */
     private class PicassoImageLoader implements NineGridView.ImageLoader {
         @Override
         public void onDisplayImage(Context context, ImageView imageView, String url) {
@@ -111,6 +114,7 @@ public class FragmentPage2 extends Fragment{
                     .error(R.drawable.ic_default_image)//
                     .into(imageView);
         }
+
         @Override
         public Bitmap getCacheImage(String url) {
             return null;
@@ -123,15 +127,16 @@ public class FragmentPage2 extends Fragment{
 
         NineGridView.setImageLoader(new PicassoImageLoader());
 
-        grade_info_add=(FloatingActionButton)getActivity().findViewById(R.id.grade_info_add);
+        grade_info_add = (FloatingActionButton) getActivity().findViewById(R.id.grade_info_add);
 
-        final ImageView grade_image_view=(ImageView)getActivity().findViewById(R.id.grade_image_view);
+        final ImageView grade_image_view = (ImageView) getActivity().findViewById(R.id.grade_image_view);
 
-        mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.recyclerview_grade);
+        mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_grade);
 
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
 
-        adapter=new GradeAdapter(R.layout.grade_info_item,buildData());
+
+        adapter = new GradeAdapter(R.layout.grade_info_item, buildData());
 
         mRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -140,51 +145,49 @@ public class FragmentPage2 extends Fragment{
 
         Glide.with(getContext()).load(R.mipmap.bg_android).into(grade_image_view);
 
-        pref=getActivity().getSharedPreferences("data",Context.MODE_PRIVATE);
-        int userflag= pref.getInt("userflag",0);
-        if(userflag==1)
-        {
+        pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        int userflag = pref.getInt("userflag", 0);
+        if (userflag == 1) {
             grade_info_add.setVisibility(View.VISIBLE);
         }
-        CircleImageView head_img=(CircleImageView)getActivity().findViewById(R.id.grade_head);
-        SharedPreferences pref=getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-        String admin=pref.getString("username","");
-        imghelper=new MyDatabasehelper(getContext(),"User.db",null,3);
-        SQLiteDatabase db=imghelper.getWritableDatabase();
-        Cursor cursor=db.rawQuery("select * from User where username=?",new String[]{admin});
-        if(cursor.moveToFirst()&&cursor.getColumnIndex("touxiang")!=0){
+        CircleImageView head_img = (CircleImageView) getActivity().findViewById(R.id.grade_head);
+        SharedPreferences pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        String admin = pref.getString("username", "");
+        imghelper = new MyDatabasehelper(getContext(), "User.db", null, 3);
+        SQLiteDatabase db = imghelper.getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from User where username=?", new String[]{admin});
+        if (cursor.moveToFirst() && cursor.getColumnIndex("touxiang") != 0) {
             try {
                 byte[] b = cursor.getBlob(cursor.getColumnIndex("touxiang"));
                 Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length, null);
                 head_img.setImageBitmap(bitmap);
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.getMessage();
             }
         }
         grade_info_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), Grade_edit.class);
-                startActivityForResult(intent,1);
+                Intent intent = new Intent(getActivity(), Grade_edit.class);
+                startActivityForResult(intent, 1);
             }
         });
 
 
-
-        final FloatingActionButton  comment=(FloatingActionButton)getActivity().findViewById(R.id.comment_btn);
+        final FloatingActionButton comment = (FloatingActionButton) getActivity().findViewById(R.id.comment_btn);
         comment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), comment_grade.class);
+                Intent intent = new Intent(getActivity(), comment_grade.class);
                 startActivity(intent);
             }
         });
 
-        final FloatingActionButton album=(FloatingActionButton)getActivity().findViewById(R.id.album_btn);
+        final FloatingActionButton album = (FloatingActionButton) getActivity().findViewById(R.id.album_btn);
         album.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), album_grade.class);
+                Intent intent = new Intent(getActivity(), album_grade.class);
                 startActivity(intent);
             }
         });
@@ -192,10 +195,10 @@ public class FragmentPage2 extends Fragment{
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Grade grade=buildData().get(position);
-                Intent intent=new Intent(getActivity(),grade_info_detail.class);
-                intent.putExtra("title",grade.getTitle());
-                intent.putExtra("content",grade.getContent());
+                Grade grade = buildData().get(position);
+                Intent intent = new Intent(getActivity(), grade_info_detail.class);
+                intent.putExtra("title", grade.getTitle());
+                intent.putExtra("content", grade.getContent());
                 startActivity(intent);
             }
         });
@@ -203,6 +206,7 @@ public class FragmentPage2 extends Fragment{
 
     /**
      * 回调函数先不管
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -210,21 +214,17 @@ public class FragmentPage2 extends Fragment{
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case 1:
-                if(resultCode==RESULT_OK)
-                {
-                   /*String urilist=data.getStringExtra("uris");*/
-                   List<String> urilist=data.getStringArrayListExtra("uris");
-                    imglist=new ArrayList<>();
-                   for(int i=0;i<urilist.size();i++)
-                   {
-                       EvaluationPic evaluationPic=new EvaluationPic(urilist.get(i),urilist.get(i));
-                       imglist.add(evaluationPic);
-                   }
+                if (resultCode == RESULT_OK) {
+                    /*String urilist=data.getStringExtra("uris");*/
+                    List<String> urilist = data.getStringArrayListExtra("uris");
+                    imglist = new ArrayList<>();
+                    for (int i = 0; i < urilist.size(); i++) {
+                        EvaluationPic evaluationPic = new EvaluationPic(urilist.get(i), urilist.get(i));
+                        imglist.add(evaluationPic);
+                    }
                 }
-
         }
     }
 
@@ -240,24 +240,21 @@ public class FragmentPage2 extends Fragment{
     }
 
 
-
-
-
     private List<Grade> buildData() {
         List<Grade> list = new ArrayList<>();
-        dbhelper=new MyDatabasehelper(getActivity(),"Grade.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
+        dbhelper = new MyDatabasehelper(getActivity(), "Grade.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
         /*photo=(SimpleDraweeView)getActivity().findViewById(R.id.user_avatar);
         username=(TextView)getActivity().findViewById(R.id.user_name);
         title=(TextView)getActivity().findViewById(R.id.title_01);
         time=(TextView)getActivity().findViewById(R.id.time_xc);
         content=(TextView)getActivity().findViewById(R.id.content_xc);*/
 
-        Cursor cursor=db.rawQuery("select * from Grade",null);
-        if(cursor.moveToFirst()){
-            do{
+        Cursor cursor = db.rawQuery("select * from Grade", null);
+        if (cursor.moveToFirst()) {
+            do {
                 Grade g = new Grade();
-                try{
+                try {
                     /*List<Uri> uris=new ArrayList<>();
                     int count=cursor.getInt(cursor.getColumnIndex("count"));
                     for(int i=0;i<count;i++) {
@@ -265,40 +262,37 @@ public class FragmentPage2 extends Fragment{
                         uris.add(uri);
                     }*/
                     uri = Uri.parse(cursor.getString(cursor.getColumnIndex("uris")));
-                    String teachername=cursor.getString(cursor.getColumnIndex("teachername"));
-                    String title_01=cursor.getString(cursor.getColumnIndex("title"));
-                    String time_01=cursor.getString(cursor.getColumnIndex("time"));
-                    String content_01=cursor.getString(cursor.getColumnIndex("content"));
+                    String teachername = cursor.getString(cursor.getColumnIndex("teachername"));
+                    String title_01 = cursor.getString(cursor.getColumnIndex("title"));
+                    String time_01 = cursor.getString(cursor.getColumnIndex("time"));
+                    String content_01 = cursor.getString(cursor.getColumnIndex("content"));
 
                     /* if (uri != null) {
                         photoBmp = getBitmapFormUri(getActivity(), uri);
                     }*/
-                    g.Attachments=data();
-                    g.UserAvatar=uri;
-                    g.Title=title_01;
-                    g.time=time_01;
-                    g.content=content_01;
+
+                    g.UserAvatar = uri;
+                    g.Title = title_01;
+                    g.time = time_01;
+                    g.content = content_01;
                     list.add(g);
-                }catch (Exception e){
-                    Log.i("ddd","failed");
+                } catch (Exception e) {
+                    Log.i("ddd", "failed");
                 }
-            }while (cursor.moveToNext());
-        }
-        else
-        {
+            } while (cursor.moveToNext());
+        } else {
             cursor.close();
         }
         return list;
     }
 
-    private List<EvaluationPic> data()
-    {
-        String[] url={"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-         "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526738020399&di=cf87338d14d7dd4a919c093b7abcf00d&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140223%2F234786-1402230K95865.jpg"};
-        List<EvaluationPic> list=new ArrayList<>();
-        for(int i=0;i<url.length;i++)
-        {
-            EvaluationPic evaluationPic=new EvaluationPic(url[i],url[i]);
+    //获取图片数据
+    private List<EvaluationPic> imageData() {
+        String[] url = {"http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
+                "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1526738020399&di=cf87338d14d7dd4a919c093b7abcf00d&imgtype=0&src=http%3A%2F%2Fimg.taopic.com%2Fuploads%2Fallimg%2F140223%2F234786-1402230K95865.jpg"};
+        List<EvaluationPic> list = new ArrayList<>();
+        for (int i = 0; i < url.length; i++) {
+            EvaluationPic evaluationPic = new EvaluationPic(url[i], url[i]);
             list.add(evaluationPic);
         }
         return list;
@@ -307,6 +301,7 @@ public class FragmentPage2 extends Fragment{
 
     /**
      * 对获取的uri图片进行压缩
+     *
      * @param ac
      * @param uri
      * @return
@@ -348,6 +343,7 @@ public class FragmentPage2 extends Fragment{
 
         return compressImage(bitmap);//再进行质量压缩
     }
+
     /**
      * 质量压缩方法
      *

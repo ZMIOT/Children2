@@ -24,24 +24,25 @@ import com.example.utils.WebService;
 import Baseclass.Info;
 
 public class myName extends AppCompatActivity {
-public MyDatabasehelper dbhelper;
-private SharedPreferences pref;
-private String nick;
-private String info;
-private String user;
-private String nickname;
-public SharedPreferences.Editor editor;
+    public MyDatabasehelper dbhelper;
+    private SharedPreferences pref;
+    private String nick;
+    private String info;
+    private String user;
+    private String nickname;
+    public SharedPreferences.Editor editor;
     private static Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_name);
-        ImageView backTomyInfo=(ImageView)findViewById(R.id.backToMyInfo);
-        TextView save=(TextView)findViewById(R.id.save);
-        final EditText edit_myName=(EditText)findViewById(R.id.edit_myName);
-        dbhelper=new MyDatabasehelper(this,"User.db",null,3);
+        ImageView backTomyInfo = (ImageView) findViewById(R.id.backToMyInfo);
+        TextView save = (TextView) findViewById(R.id.save);
+        final EditText edit_myName = (EditText) findViewById(R.id.edit_myName);
+        dbhelper = new MyDatabasehelper(this, "User.db", null, 3);
 
-        backTomyInfo.setOnClickListener(new View.OnClickListener(){
+        backTomyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 /*Intent intent=new Intent(myName.this,Personal_info.class);
@@ -49,19 +50,19 @@ public SharedPreferences.Editor editor;
                 Back();
             }
         });
-        save.setOnClickListener(new View.OnClickListener(){
+        save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pref=getSharedPreferences("data",MODE_PRIVATE);//获取到当前对象
-                user=pref.getString("username","");
-                nickname=edit_myName.getText().toString();
-                SQLiteDatabase db=dbhelper.getWritableDatabase();
-                ContentValues values=new ContentValues();
-                values.put("nickname",nickname);
-                db.update("User",values,"username=?",new String[]{user});
-                editor=getSharedPreferences("info",MODE_PRIVATE).edit();
-                editor.putString("nickname",nickname);
-                Intent intent=new Intent(myName.this, Personal_info.class);
+                pref = getSharedPreferences("data", MODE_PRIVATE);//获取到当前对象
+                user = pref.getString("username", "");
+                nickname = edit_myName.getText().toString();
+                SQLiteDatabase db = dbhelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("nickname", nickname);
+                db.update("User", values, "username=?", new String[]{user});
+                editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+                editor.putString("nickname", nickname);
+                Intent intent = new Intent(myName.this, Personal_info.class);
                 startActivity(intent);
             }
         });
@@ -83,12 +84,8 @@ public SharedPreferences.Editor editor;
                         *//*}*/
 
 
-
-
-
-
-    public void Back(){
-        Intent intent=new Intent(myName.this,Personal_info.class);
+    public void Back() {
+        Intent intent = new Intent(myName.this, Personal_info.class);
         startActivity(intent);
     }
 }

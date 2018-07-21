@@ -102,6 +102,10 @@ viewpager嵌套子fragment
 
     compile 'com.lzy.widget:ninegridview:0.2.0'
 
+    compile('com.jph.takephoto:takephoto_library:4.0.3') {
+        exclude group: 'com.github.bumptech.glide'
+    }
+
     //图表
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }

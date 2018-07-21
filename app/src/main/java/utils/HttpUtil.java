@@ -24,12 +24,12 @@ import static java.lang.String.valueOf;
  * Created by SoulMateXD on 2016/10/30.
  */
 
-    //模板代码。要熟练写出来
-    //虽然很蠢，改进很多。。
+//模板代码。要熟练写出来
+//虽然很蠢，改进很多。。
 public class HttpUtil {
     /*private static OkHttpClient mOkHttpClient = new OkHttpClient();*/
 
-    public static String post(String url, HashMap<String, String> params){
+    public static String post(String url, HashMap<String, String> params) {
         HttpURLConnection httpURLConnection = null;
         byte[] data = getRequestData(params, "UTF-8").toString().getBytes();
         InputStream is = null;
@@ -73,14 +73,15 @@ public class HttpUtil {
         // 转化为字符串
         return new String(data, "UTF-8");
     }
+
     /*
-         * Function  :   封装请求体信息
-         * Param     :   params请求体内容，encode编码格式
-         */
+     * Function  :   封装请求体信息
+     * Param     :   params请求体内容，encode编码格式
+     */
     public static StringBuffer getRequestData(Map<String, String> params, String encode) {
         StringBuffer stringBuffer = new StringBuffer();        //存储封装好的请求体信息
         try {
-            for(Map.Entry<String, String> entry : params.entrySet()) {
+            for (Map.Entry<String, String> entry : params.entrySet()) {
                 stringBuffer.append(entry.getKey())
                         .append("=")
                         .append(URLEncoder.encode(entry.getValue(), encode))
@@ -93,7 +94,7 @@ public class HttpUtil {
         return stringBuffer;
     }
 
-    public static String get(String url){
+    public static String get(String url) {
         HttpURLConnection httpURLConnection = null;
         try {
             URL mUrl = new URL(url);
@@ -102,23 +103,23 @@ public class HttpUtil {
             httpURLConnection.setReadTimeout(5000);
             httpURLConnection.setConnectTimeout(5000);
             int responseCode = httpURLConnection.getResponseCode();
-            if (responseCode == 200){  //请求成功
+            if (responseCode == 200) {  //请求成功
                 InputStream inputStream = httpURLConnection.getInputStream();
                 String response = getResponseString(inputStream);
                 return response;
-            }else {
+            } else {
                 Log.d("Myresponse", "response status is" + responseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (httpURLConnection != null)
-            httpURLConnection.disconnect();
+                httpURLConnection.disconnect();
         }
         return null;
     }
 
-    public static Bitmap getBitMap(String url){
+    public static Bitmap getBitMap(String url) {
         Bitmap bitmap = null;
         HttpURLConnection httpURLConnection = null;
         try {
@@ -127,16 +128,16 @@ public class HttpUtil {
             httpURLConnection.setRequestMethod("GET");
             int responseCode = httpURLConnection.getResponseCode();
             Log.e("HttpUtil", responseCode + "111");
-            if (responseCode == 200){  //请求成功
+            if (responseCode == 200) {  //请求成功
                 httpURLConnection = (HttpURLConnection) mUrl.openConnection();
                 bitmap = BitmapFactory.decodeStream(httpURLConnection.getInputStream());
                 Log.e("HttpUtil", responseCode + "");
-            }else {
+            } else {
                 throw new NetworkErrorException("response status is" + responseCode);
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }finally {
+        } finally {
             if (httpURLConnection != null)
                 httpURLConnection.disconnect();
         }
@@ -175,7 +176,7 @@ public class HttpUtil {
         }
         return bitmap;
     }*/
-    private static String getResponseString(InputStream inputStream){
+    private static String getResponseString(InputStream inputStream) {
         //ByteArrayOutputStream实现了一个输出流，其中的数据被写入一个 byte 数组。
         // 缓冲区会随着数据的不断写入而自动增长。可使用 toByteArray()和 toString()获取数据。
         //可以用来缓存数据，多次写入一次获取
@@ -185,7 +186,7 @@ public class HttpUtil {
 
         try {
             //SoulMateXD啊，你当初写的时候为什么会把这里写成if呢？你TM算算你找了多久
-            while ((len = inputStream.read(bytes)) != -1){
+            while ((len = inputStream.read(bytes)) != -1) {
                 byteArrayOutputStream.write(bytes, 0, len);
                 Log.d("RESPONSE", new String(bytes, 0, len));
             }

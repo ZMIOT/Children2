@@ -28,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-
 import com.alirezaafkar.toolbar.RtlActionBarDrawerToggle;
 import com.alirezaafkar.toolbar.RtlToolbar;
 import com.example.GradeCircle.XC_edit;
@@ -53,7 +52,7 @@ import Baseclass.PersonCard;
  */
 
 public class FragmentPage4 extends Fragment {
-    private  NewsAdapter newsAdapter;
+    private NewsAdapter newsAdapter;
 
     private List<News> newsList;
     private RecyclerView mRecyclerView;
@@ -67,29 +66,29 @@ public class FragmentPage4 extends Fragment {
     private TextView username;
     private SimpleDraweeView photo;
     private SharedPreferences pref;
-    private int userflag=0;
+    private int userflag = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         Fresco.initialize(getActivity());
-        return inflater.inflate(R.layout.fragment4,null);
+        return inflater.inflate(R.layout.fragment4, null);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        FloatingActionButton fladd=(FloatingActionButton)getActivity().findViewById(R.id.fladd);
-        pref=getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
-        int userflag= pref.getInt("userflag",0);
-        if(userflag==2)
-        {
+        FloatingActionButton fladd = (FloatingActionButton) getActivity().findViewById(R.id.fladd);
+        pref = getActivity().getSharedPreferences("data", Context.MODE_PRIVATE);
+        int userflag = pref.getInt("userflag", 0);
+        if (userflag == 2) {
             fladd.setVisibility(View.VISIBLE);
         }
         init();
-        Toolbar toolbar = (Toolbar)getActivity().findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
         toolbar.setTitle("校园公告");
-       /* Menu menu=toolbar.getMenu();*/
+        /* Menu menu=toolbar.getMenu();*/
        /* DrawerLayout drawerLayout = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
         RtlActionBarDrawerToggle drawerToggle = new RtlActionBarDrawerToggle(getActivity(), drawerLayout,
                 toolbar, R.string.navigation_drawer_open,
@@ -100,11 +99,11 @@ public class FragmentPage4 extends Fragment {
         fladd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(),XC_edit.class);
+                Intent intent = new Intent(getActivity(), XC_edit.class);
                 try {
                     intent.putExtra("content", content.getText());
                     intent.putExtra("title", title.getText());
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.getMessage();
                 }
                 startActivity(intent);
@@ -119,7 +118,7 @@ public class FragmentPage4 extends Fragment {
     }
 
     private void init() {
-        mRecyclerView = (RecyclerView)getActivity().findViewById(R.id.recyclerview);
+        mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview);
         //设置布局管理器为2列，纵向
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mAdapter = new NewsAdapter(getActivity(), buildData());
@@ -131,22 +130,21 @@ public class FragmentPage4 extends Fragment {
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int postion) {
-                String article="";
-               /* Toast.makeText(getActivity(),"你好recyclerview"+view.getDisplay(),Toast.LENGTH_SHORT).show();*/
+                String article = "";
+                /* Toast.makeText(getActivity(),"你好recyclerview"+view.getDisplay(),Toast.LENGTH_SHORT).show();*/
 
-               Intent intent=new Intent(getActivity(),NewsDetail.class);
-                PersonCard p=buildData().get(postion);
-                intent.putExtra("title",p.getTitle());
-                intent.putExtra("content",p.getContent());
+                Intent intent = new Intent(getActivity(), NewsDetail.class);
+                PersonCard p = buildData().get(postion);
+                intent.putExtra("title", p.getTitle());
+                intent.putExtra("content", p.getContent());
                 startActivity(intent);
             }
+
             @Override
             public void onLongClick(int position) {
             }
         });
     }
-
-
 
 
     @Override
@@ -168,38 +166,36 @@ public class FragmentPage4 extends Fragment {
             *//*p.imgHeight = (i % 2)*100 + 400; *//*//偶数和奇数的图片设置不同的高度，以到达错开的目的
             list.add(p);
         }*/
-        dbhelper=new MyDatabasehelper(getActivity(),"Dyna.db",null,3);
-        SQLiteDatabase db=dbhelper.getWritableDatabase();
+        dbhelper = new MyDatabasehelper(getActivity(), "Dyna.db", null, 3);
+        SQLiteDatabase db = dbhelper.getWritableDatabase();
        /* photo=(SimpleDraweeView)getActivity().findViewById(R.id.user_avatar);
         username=(TextView)getActivity().findViewById(R.id.user_name);
         title=(TextView)getActivity().findViewById(R.id.title_01);
         time=(TextView)getActivity().findViewById(R.id.time_xc);
         content=(TextView)getActivity().findViewById(R.id.content_xc);*/
 
-        Cursor cursor=db.rawQuery("select * from Dyna",null);
-        if(cursor.moveToFirst()){
-            do{
+        Cursor cursor = db.rawQuery("select * from Dyna", null);
+        if (cursor.moveToFirst()) {
+            do {
                 PersonCard p = new PersonCard();
-                try{
-                    String uri=cursor.getString(cursor.getColumnIndex("uri"));
-                    String teachername=cursor.getString(cursor.getColumnIndex("teachername"));
-                    String title_01=cursor.getString(cursor.getColumnIndex("title"));
-                    String time_01=cursor.getString(cursor.getColumnIndex("time"));
-                    String content_01=cursor.getString(cursor.getColumnIndex("content"));
-                   p.avatarUrl=uri;
-                   p.name=teachername;
-                   p.content=content_01;
-                   p.title=title_01;
-                   p.time=time_01;
-                   p.imgHeight=400;
-                   list.add(p);
-                }catch (Exception e){
-                    Log.i("ddd","failed");
+                try {
+                    String uri = cursor.getString(cursor.getColumnIndex("uri"));
+                    String teachername = cursor.getString(cursor.getColumnIndex("teachername"));
+                    String title_01 = cursor.getString(cursor.getColumnIndex("title"));
+                    String time_01 = cursor.getString(cursor.getColumnIndex("time"));
+                    String content_01 = cursor.getString(cursor.getColumnIndex("content"));
+                    p.avatarUrl = uri;
+                    p.name = teachername;
+                    p.content = content_01;
+                    p.title = title_01;
+                    p.time = time_01;
+                    p.imgHeight = 400;
+                    list.add(p);
+                } catch (Exception e) {
+                    Log.i("ddd", "failed");
                 }
-            }while (cursor.moveToNext());
-        }
-        else
-        {
+            } while (cursor.moveToNext());
+        } else {
             cursor.close();
         }
         return list;
@@ -207,12 +203,12 @@ public class FragmentPage4 extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_main,menu);
+        inflater.inflate(R.menu.menu_main, menu);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       return true;
+        return true;
     }
 }

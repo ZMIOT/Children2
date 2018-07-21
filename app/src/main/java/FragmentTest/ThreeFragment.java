@@ -40,6 +40,7 @@ public class ThreeFragment extends Fragment {
     private List<Baby> babyList;
     private static final String KGURL = "http://192.168.43.143:8081/HelloWeb/BabyLet";
     private Handler babyHandler;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -49,27 +50,26 @@ public class ThreeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        mRecyclerView=(RecyclerView)getActivity().findViewById(R.id.recyclerview_baby_info);
+        mRecyclerView = (RecyclerView) getActivity().findViewById(R.id.recyclerview_baby_info);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         new Thread(new babyThread()).start();
-        babyHandler=new Handler(){
+        babyHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                switch ((int)msg.obj)
-                {
+                switch ((int) msg.obj) {
                     case 1:
-                        BabyAdapter babyAdapter=new BabyAdapter(R.layout.baby_item,babyList);
+                        BabyAdapter babyAdapter = new BabyAdapter(R.layout.baby_item, babyList);
                         mRecyclerView.setAdapter(babyAdapter);
                         babyAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                                Intent intent=new Intent(getActivity(),Baby_info.class);
-                                intent.putExtra("babyname",babyList.get(position).getBabyname());
-                                intent.putExtra("parent_phone",babyList.get(position).getParent_phone());
-                                intent.putExtra("summary",babyList.get(position).getSummary());
+                                Intent intent = new Intent(getActivity(), Baby_info.class);
+                                intent.putExtra("babyname", babyList.get(position).getBabyname());
+                                intent.putExtra("parent_phone", babyList.get(position).getParent_phone());
+                                intent.putExtra("summary", babyList.get(position).getSummary());
                                 startActivity(intent);
                             }
                         });
@@ -80,51 +80,50 @@ public class ThreeFragment extends Fragment {
             }
         };
     }
-    public class babyThread implements Runnable{
+
+    public class babyThread implements Runnable {
 
         final HashMap<String, String> params = new HashMap<>();
+
         public HashMap<String, String> getParams() {
-            params.put("baby","query");
+            params.put("baby", "query");
             return params;
         }
+
         @Override
         public void run() {
             try {
-                babyList=new ArrayList<>();
-                String res = HttpUtil.post(KGURL,getParams());
-                JSONArray jsonArray =new JSONArray(res);
-                String babyname=null;
-                String classname=null;
-                String summary=null;
-                for(int i=0;i<jsonArray.length();i++) {
+                babyList = new ArrayList<>();
+                String res = HttpUtil.post(KGURL, getParams());
+                JSONArray jsonArray = new JSONArray(res);
+                String babyname = null;
+                String classname = null;
+                String summary = null;
+                for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-                    if(jsonObject!=null && jsonArray.length()>0)
-                    {
+                    if (jsonObject != null && jsonArray.length() > 0) {
                        /* Baby baby=new Baby(jsonObject.getInt("babyid"),jsonObject.getString("babyname"),jsonObject.getString("sex"),jsonObject.getString("birth"),jsonObject.getString("parent"),jsonObject.getString("summary"),jsonObject.getString("phone"),
                                 jsonObject.getInt("classid"),jsonObject.getString("summary"),jsonObject.getString("parent_phone"));*/
-                       try {
+                        try {
                             babyname = URLDecoder.decode(jsonObject.getString("babyname"), "UTF-8");
                             classname = URLDecoder.decode(jsonObject.getString("classname"), "UTF-8");
-                           summary = URLDecoder.decode(jsonObject.getString("summary"), "UTF-8");
-                       }catch (Exception e)
-                       {
-                           e.getMessage();
-                       }
-                        Baby baby=new Baby(jsonObject.getInt("babyid"),babyname,classname,summary,jsonObject.getString("parent_phone"));
+                            summary = URLDecoder.decode(jsonObject.getString("summary"), "UTF-8");
+                        } catch (Exception e) {
+                            e.getMessage();
+                        }
+                        Baby baby = new Baby(jsonObject.getInt("babyid"), babyname, classname, summary, jsonObject.getString("parent_phone"));
                         babyList.add(baby);
-                    }
-                    else
-                    {
-                        Log.i("jsonArray","error");
+                    } else {
+                        Log.i("jsonArray", "error");
                     }
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            if(!babyList.isEmpty()){
-                Message msg=new Message();
-                msg.obj=1;
+            if (!babyList.isEmpty()) {
+                Message msg = new Message();
+                msg.obj = 1;
                 babyHandler.sendMessage(msg);
             }
 

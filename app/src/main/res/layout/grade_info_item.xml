@@ -3,19 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="@color/white"
-    android:paddingBottom="10dp"
-    android:padding="10dp">
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:paddingBottom="10dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/grade_head"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/tx"
-        app:civ_border_width="0dp"
-        app:civ_border_color="#ffffff"/>
+        app:civ_border_color="#ffffff"
+        app:civ_border_width="0dp" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -29,28 +28,19 @@
             android:layout_height="wrap_content"
 
             android:textColor="@color/colorAccent" />
+
         <TextView
             android:id="@+id/title_01_grade"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/content_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            />
+            android:layout_marginTop="5dp" />
 
-        <!--<com.hjianfei.ninegridlayout.NineGridTestLayout
-            android:id="@+id/user_avatar_grade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:sapcing="4dp" />-->
-        <ImageView
-            android:id="@+id/user_avatar_grade"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/gv_animation"/>
+
         <com.lzy.ninegrid.NineGridView
             android:id="@+id/nineGrid"
             android:layout_width="match_parent"
@@ -60,100 +50,15 @@
             app:ngv_maxSize="9"
             app:ngv_mode="grid"
             app:ngv_singleImageRatio="1"
-            app:ngv_singleImageSize="250dp"/>
+            app:ngv_singleImageSize="250dp" />
+
         <TextView
             android:id="@+id/time_grade"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp" />
     </LinearLayout>
 </LinearLayout>
-<!--<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:background="#F0F0F0"
-    android:orientation="vertical"
-    android:padding="5dp"
-    >
 
-    &lt;!&ndash;<android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:cardCornerRadius="5dp"
-        >&ndash;&gt;
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            android:paddingTop="10dp"
-            android:orientation="horizontal"
-            >
-            &lt;!&ndash;&lt;!&ndash;<com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/user_avatar_grade"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                fresco:actualImageScaleType="centerCrop"
-                />&ndash;&gt;&ndash;&gt;
-            <ImageView
-                android:id="@+id/user_avatar_grade"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/gv_animation"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    android:gravity="center">
-                    <TextView
-                        android:id="@+id/title_01_grade"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5"
-                    >
-                    <TextView
-                        android:id="@+id/content_grade"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-    &lt;!&ndash;</android.support.v7.widget.CardView>&ndash;&gt;
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/user_grade"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:gravity="right"
-            />
-        <TextView
-            android:id="@+id/time_grade"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"/>
-    </LinearLayout>
-</LinearLayout>-->
-
-    <!---->
 
 

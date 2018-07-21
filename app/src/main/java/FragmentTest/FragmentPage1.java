@@ -21,7 +21,6 @@ import com.example.administrator.broadcastbestpractice.MyDatabasehelper;
 import com.example.administrator.broadcastbestpractice.R;
 
 
-
 import static android.content.Context.MODE_PRIVATE;
 
 /**
@@ -33,7 +32,8 @@ public class FragmentPage1 extends Fragment {
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
     private MyDatabasehelper dbhelper;
-    private int state=0;
+    private int state = 0;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -43,12 +43,12 @@ public class FragmentPage1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Button add_nursery=(Button)getView().findViewById(R.id.addToNursery);
+        Button add_nursery = (Button) getView().findViewById(R.id.addToNursery);
         add_nursery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context activity=getActivity();
-                Intent intent=new Intent(activity,improve_acc_infomation.class);
+                Context activity = getActivity();
+                Intent intent = new Intent(activity, improve_acc_infomation.class);
                 startActivity(intent);
             }
         });

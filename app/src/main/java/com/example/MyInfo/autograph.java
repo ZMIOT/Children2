@@ -42,19 +42,20 @@ public class autograph extends AppCompatActivity {
     private String user;
     private String autograph;
     private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autograph);
-         backToMyInfo=(ImageView)findViewById(R.id.backToMyInfo_autograph);
-         save=(TextView)findViewById(R.id.save_autograph);
-         edit_autograph=(EditText)findViewById(R.id.edit_autogarph);
-        dbhelper=new MyDatabasehelper(this,"User.db",null,3);
+        backToMyInfo = (ImageView) findViewById(R.id.backToMyInfo_autograph);
+        save = (TextView) findViewById(R.id.save_autograph);
+        edit_autograph = (EditText) findViewById(R.id.edit_autogarph);
+        dbhelper = new MyDatabasehelper(this, "User.db", null, 3);
 
         backToMyInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(autograph.this, Personal_info.class);
+                Intent intent = new Intent(autograph.this, Personal_info.class);
                 startActivity(intent);
             }
         });
@@ -62,16 +63,16 @@ public class autograph extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pref=getSharedPreferences("data",MODE_PRIVATE);//获取到当前对象
-                user=pref.getString("username","");
-                autograph=edit_autograph.getText().toString();
-                SQLiteDatabase db=dbhelper.getWritableDatabase();
-                ContentValues values=new ContentValues();
-                values.put("autograph",autograph);
-                db.update("User",values,"username=?",new String[]{user});
-                editor=getSharedPreferences("info",MODE_PRIVATE).edit();
-                editor.putString("autograph",autograph);
-                Intent intent=new Intent(autograph.this, Personal_info.class);
+                pref = getSharedPreferences("data", MODE_PRIVATE);//获取到当前对象
+                user = pref.getString("username", "");
+                autograph = edit_autograph.getText().toString();
+                SQLiteDatabase db = dbhelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("autograph", autograph);
+                db.update("User", values, "username=?", new String[]{user});
+                editor = getSharedPreferences("info", MODE_PRIVATE).edit();
+                editor.putString("autograph", autograph);
+                Intent intent = new Intent(autograph.this, Personal_info.class);
                 startActivity(intent);
             }
         });

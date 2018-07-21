@@ -25,16 +25,17 @@ public class Set_up extends BaseActivity {
     private String info;
     private SharedPreferences pref;
     private static final String KGURL = "http://192.168.43.143:8081/HelloWeb/RegLet";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_up);
-        Button exit=(Button)findViewById(R.id.exit);
-        Button unbind=(Button)findViewById(R.id.unbind);
+        Button exit = (Button) findViewById(R.id.exit);
+        Button unbind = (Button) findViewById(R.id.unbind);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    ActivityCollector.finishAll();
+                ActivityCollector.finishAll();
             }
         });
         unbind.setOnClickListener(new View.OnClickListener() {
@@ -45,16 +46,19 @@ public class Set_up extends BaseActivity {
         });
 
     }
-    private class adminThread implements Runnable{
+
+    private class adminThread implements Runnable {
         Message msg = new Message();
-        public HashMap<String,String> getParams() {
-            pref=getSharedPreferences("data",MODE_PRIVATE);
-            String username=pref.getString("username","");
-            HashMap<String,String> params = new HashMap<>();
-            params.put("state","state");
-            params.put("username",username);
+
+        public HashMap<String, String> getParams() {
+            pref = getSharedPreferences("data", MODE_PRIVATE);
+            String username = pref.getString("username", "");
+            HashMap<String, String> params = new HashMap<>();
+            params.put("state", "state");
+            params.put("username", username);
             return params;
         }
+
         @Override
         public void run() {
 
@@ -63,17 +67,17 @@ public class Set_up extends BaseActivity {
             uHandler.sendMessage(msg);
         }
     }
-    private Handler uHandler=new Handler(){
+
+    private Handler uHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch((String)msg.obj)
-            {
+            switch ((String) msg.obj) {
                 case "state success":
-                    Toast.makeText(Set_up.this,"解绑成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Set_up.this, "解绑成功", Toast.LENGTH_SHORT).show();
                     break;
                 case "state filed":
-                    Toast.makeText(Set_up.this,"解绑失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Set_up.this, "解绑失败", Toast.LENGTH_SHORT).show();
                     break;
             }
         }

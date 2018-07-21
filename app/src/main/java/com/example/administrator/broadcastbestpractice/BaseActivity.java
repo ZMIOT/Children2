@@ -20,25 +20,27 @@ import com.gyf.barlibrary.ImmersionBar;
 public class BaseActivity extends AppCompatActivity {
     private OffLineReceiver offLineReceiver;
     private ImmersionBar mImmersionBar;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
         ActivityCollector.addActivity(this);
     }
+
     @Override
     protected void onResume() {
         super.onResume();
-        IntentFilter intentFilter=new IntentFilter("com.example.administrator.broadcastbestpractice.FORCE_OFFLINE");
-        offLineReceiver=new OffLineReceiver();
-        registerReceiver(offLineReceiver,intentFilter);
+        IntentFilter intentFilter = new IntentFilter("com.example.administrator.broadcastbestpractice.FORCE_OFFLINE");
+        offLineReceiver = new OffLineReceiver();
+        registerReceiver(offLineReceiver, intentFilter);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(offLineReceiver!=null){
+        if (offLineReceiver != null) {
             unregisterReceiver(offLineReceiver);
-            offLineReceiver=null;
+            offLineReceiver = null;
         }
     }
 
@@ -49,10 +51,10 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    class OffLineReceiver extends BroadcastReceiver{
+    class OffLineReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(final Context context, Intent intent) {
-            AlertDialog.Builder builder=new AlertDialog.Builder(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Warning");
             builder.setMessage("You are forced to be offline.Please try to login again");
             builder.setCancelable(false);
@@ -60,7 +62,7 @@ public class BaseActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     ActivityCollector.finishAll();
-                    Intent intent=new Intent(context,loginActivity.class);
+                    Intent intent = new Intent(context, loginActivity.class);
                     context.startActivity(intent);
                 }
             });
